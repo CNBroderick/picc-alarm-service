@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ape.alarm.entity.mapper.AlarmBmacMapper">
+  <resultMap id="BaseResultMap" type="ape.alarm.entity.po.AlarmBmac">
+    <!--@mbg.generated-->
+    <!--@Table tb_alarm_bmac-->
+    <id column="d_id" jdbcType="INTEGER" property="id" />
+    <result column="d_aid" jdbcType="INTEGER" property="aid" />
+    <result column="d_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="d_close_time" jdbcType="TIMESTAMP" property="closeTime" />
+    <result column="d_status" jdbcType="VARCHAR" property="status" />
+    <result column="d_code" jdbcType="INTEGER" property="code" />
+    <result column="d_ip" jdbcType="VARCHAR" property="ip" />
+    <result column="d_alarm_type" jdbcType="VARCHAR" property="alarmType" />
+    <result column="d_level" jdbcType="VARCHAR" property="level" />
+    <result column="d_action" jdbcType="VARCHAR" property="action" />
+    <result column="d_message" jdbcType="VARCHAR" property="message" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    d_id, d_aid, d_create_time, d_close_time, d_status, d_code, d_ip, d_alarm_type, d_level, 
+    d_action, d_message
+  </sql>
+  <select id="selectByExample" parameterType="ape.alarm.entity.po.AlarmBmacExample" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_alarm_bmac
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from tb_alarm_bmac
+    where d_id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from tb_alarm_bmac
+    where d_id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ape.alarm.entity.po.AlarmBmacExample">
+    <!--@mbg.generated-->
+    delete from tb_alarm_bmac
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="d_id" keyProperty="id" parameterType="ape.alarm.entity.po.AlarmBmac" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tb_alarm_bmac (d_aid, d_create_time, d_close_time, 
+      d_status, d_code, d_ip, d_alarm_type, 
+      d_level, d_action, d_message
+      )
+    values (#{aid,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=VARCHAR}, #{code,jdbcType=INTEGER}, #{ip,jdbcType=VARCHAR}, #{alarmType,jdbcType=VARCHAR}, 
+      #{level,jdbcType=VARCHAR}, #{action,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="d_id" keyProperty="id" parameterType="ape.alarm.entity.po.AlarmBmac" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tb_alarm_bmac
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        d_aid,
+      </if>
+      <if test="createTime != null">
+        d_create_time,
+      </if>
+      <if test="closeTime != null">
+        d_close_time,
+      </if>
+      <if test="status != null">
+        d_status,
+      </if>
+      <if test="code != null">
+        d_code,
+      </if>
+      <if test="ip != null">
+        d_ip,
+      </if>
+      <if test="alarmType != null">
+        d_alarm_type,
+      </if>
+      <if test="level != null">
+        d_level,
+      </if>
+      <if test="action != null">
+        d_action,
+      </if>
+      <if test="message != null">
+        d_message,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null">
+        #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmType != null">
+        #{alarmType,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null">
+        #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        #{message,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ape.alarm.entity.po.AlarmBmacExample" resultType="java.lang.Long">
+    <!--@mbg.generated-->
+    select count(*) from tb_alarm_bmac
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--@mbg.generated-->
+    update tb_alarm_bmac
+    <set>
+      <if test="record.id != null">
+        d_id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.aid != null">
+        d_aid = #{record.aid,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        d_create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.closeTime != null">
+        d_close_time = #{record.closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        d_status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.code != null">
+        d_code = #{record.code,jdbcType=INTEGER},
+      </if>
+      <if test="record.ip != null">
+        d_ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.alarmType != null">
+        d_alarm_type = #{record.alarmType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null">
+        d_level = #{record.level,jdbcType=VARCHAR},
+      </if>
+      <if test="record.action != null">
+        d_action = #{record.action,jdbcType=VARCHAR},
+      </if>
+      <if test="record.message != null">
+        d_message = #{record.message,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--@mbg.generated-->
+    update tb_alarm_bmac
+    set d_id = #{record.id,jdbcType=INTEGER},
+      d_aid = #{record.aid,jdbcType=INTEGER},
+      d_create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      d_close_time = #{record.closeTime,jdbcType=TIMESTAMP},
+      d_status = #{record.status,jdbcType=VARCHAR},
+      d_code = #{record.code,jdbcType=INTEGER},
+      d_ip = #{record.ip,jdbcType=VARCHAR},
+      d_alarm_type = #{record.alarmType,jdbcType=VARCHAR},
+      d_level = #{record.level,jdbcType=VARCHAR},
+      d_action = #{record.action,jdbcType=VARCHAR},
+      d_message = #{record.message,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ape.alarm.entity.po.AlarmBmac">
+    <!--@mbg.generated-->
+    update tb_alarm_bmac
+    <set>
+      <if test="aid != null">
+        d_aid = #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        d_create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null">
+        d_close_time = #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        d_status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        d_code = #{code,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null">
+        d_ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmType != null">
+        d_alarm_type = #{alarmType,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        d_level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null">
+        d_action = #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        d_message = #{message,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where d_id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ape.alarm.entity.po.AlarmBmac">
+    <!--@mbg.generated-->
+    update tb_alarm_bmac
+    set d_aid = #{aid,jdbcType=INTEGER},
+      d_create_time = #{createTime,jdbcType=TIMESTAMP},
+      d_close_time = #{closeTime,jdbcType=TIMESTAMP},
+      d_status = #{status,jdbcType=VARCHAR},
+      d_code = #{code,jdbcType=INTEGER},
+      d_ip = #{ip,jdbcType=VARCHAR},
+      d_alarm_type = #{alarmType,jdbcType=VARCHAR},
+      d_level = #{level,jdbcType=VARCHAR},
+      d_action = #{action,jdbcType=VARCHAR},
+      d_message = #{message,jdbcType=VARCHAR}
+    where d_id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getById" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List" />
+        from tb_alarm_bmac
+        where d_id=#{id,jdbcType=INTEGER}
+    </select>
+  <update id="updateStatusById">
+        <!--@mbg.generated-->
+        update tb_alarm_bmac
+        set d_status=#{updatedStatus,jdbcType=VARCHAR}
+        where d_id=#{id,jdbcType=INTEGER}
+    </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update tb_alarm_bmac
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="d_aid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when d_id = #{item.id,jdbcType=INTEGER} then #{item.aid,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="d_create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when d_id = #{item.id,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="d_close_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when d_id = #{item.id,jdbcType=INTEGER} then #{item.closeTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="d_status = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when d_id = #{item.id,jdbcType=INTEGER} then #{item.status,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="d_code = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when d_id = #{item.id,jdbcType=INTEGER} then #{item.code,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="d_ip = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when d_id = #{item.id,jdbcType=INTEGER} then #{item.ip,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="d_alarm_type = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when d_id = #{item.id,jdbcType=INTEGER} then #{item.alarmType,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="d_level = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when d_id = #{item.id,jdbcType=INTEGER} then #{item.level,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="d_action = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when d_id = #{item.id,jdbcType=INTEGER} then #{item.action,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="d_message = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when d_id = #{item.id,jdbcType=INTEGER} then #{item.message,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+    </trim>
+    where d_id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update tb_alarm_bmac
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="d_aid = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.aid != null">
+            when d_id = #{item.id,jdbcType=INTEGER} then #{item.aid,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="d_create_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.createTime != null">
+            when d_id = #{item.id,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="d_close_time = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.closeTime != null">
+            when d_id = #{item.id,jdbcType=INTEGER} then #{item.closeTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="d_status = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.status != null">
+            when d_id = #{item.id,jdbcType=INTEGER} then #{item.status,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="d_code = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.code != null">
+            when d_id = #{item.id,jdbcType=INTEGER} then #{item.code,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="d_ip = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.ip != null">
+            when d_id = #{item.id,jdbcType=INTEGER} then #{item.ip,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="d_alarm_type = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.alarmType != null">
+            when d_id = #{item.id,jdbcType=INTEGER} then #{item.alarmType,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="d_level = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.level != null">
+            when d_id = #{item.id,jdbcType=INTEGER} then #{item.level,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="d_action = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.action != null">
+            when d_id = #{item.id,jdbcType=INTEGER} then #{item.action,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="d_message = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.message != null">
+            when d_id = #{item.id,jdbcType=INTEGER} then #{item.message,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where d_id in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="d_id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tb_alarm_bmac
+    (d_aid, d_create_time, d_close_time, d_status, d_code, d_ip, d_alarm_type, d_level, 
+      d_action, d_message)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.aid,jdbcType=INTEGER}, #{item.createTime,jdbcType=TIMESTAMP}, #{item.closeTime,jdbcType=TIMESTAMP}, 
+        #{item.status,jdbcType=VARCHAR}, #{item.code,jdbcType=INTEGER}, #{item.ip,jdbcType=VARCHAR}, 
+        #{item.alarmType,jdbcType=VARCHAR}, #{item.level,jdbcType=VARCHAR}, #{item.action,jdbcType=VARCHAR}, 
+        #{item.message,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="d_id" keyProperty="id" parameterType="ape.alarm.entity.po.AlarmBmac" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tb_alarm_bmac
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        d_id,
+      </if>
+      d_aid,
+      d_create_time,
+      d_close_time,
+      d_status,
+      d_code,
+      d_ip,
+      d_alarm_type,
+      d_level,
+      d_action,
+      d_message,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      #{aid,jdbcType=INTEGER},
+      #{createTime,jdbcType=TIMESTAMP},
+      #{closeTime,jdbcType=TIMESTAMP},
+      #{status,jdbcType=VARCHAR},
+      #{code,jdbcType=INTEGER},
+      #{ip,jdbcType=VARCHAR},
+      #{alarmType,jdbcType=VARCHAR},
+      #{level,jdbcType=VARCHAR},
+      #{action,jdbcType=VARCHAR},
+      #{message,jdbcType=VARCHAR},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        d_id = #{id,jdbcType=INTEGER},
+      </if>
+      d_aid = #{aid,jdbcType=INTEGER},
+      d_create_time = #{createTime,jdbcType=TIMESTAMP},
+      d_close_time = #{closeTime,jdbcType=TIMESTAMP},
+      d_status = #{status,jdbcType=VARCHAR},
+      d_code = #{code,jdbcType=INTEGER},
+      d_ip = #{ip,jdbcType=VARCHAR},
+      d_alarm_type = #{alarmType,jdbcType=VARCHAR},
+      d_level = #{level,jdbcType=VARCHAR},
+      d_action = #{action,jdbcType=VARCHAR},
+      d_message = #{message,jdbcType=VARCHAR},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="d_id" keyProperty="id" parameterType="ape.alarm.entity.po.AlarmBmac" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into tb_alarm_bmac
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        d_id,
+      </if>
+      <if test="aid != null">
+        d_aid,
+      </if>
+      <if test="createTime != null">
+        d_create_time,
+      </if>
+      <if test="closeTime != null">
+        d_close_time,
+      </if>
+      <if test="status != null">
+        d_status,
+      </if>
+      <if test="code != null">
+        d_code,
+      </if>
+      <if test="ip != null">
+        d_ip,
+      </if>
+      <if test="alarmType != null">
+        d_alarm_type,
+      </if>
+      <if test="level != null">
+        d_level,
+      </if>
+      <if test="action != null">
+        d_action,
+      </if>
+      <if test="message != null">
+        d_message,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="aid != null">
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null">
+        #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmType != null">
+        #{alarmType,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null">
+        #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        #{message,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        d_id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="aid != null">
+        d_aid = #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        d_create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null">
+        d_close_time = #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        d_status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null">
+        d_code = #{code,jdbcType=INTEGER},
+      </if>
+      <if test="ip != null">
+        d_ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmType != null">
+        d_alarm_type = #{alarmType,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        d_level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="action != null">
+        d_action = #{action,jdbcType=VARCHAR},
+      </if>
+      <if test="message != null">
+        d_message = #{message,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

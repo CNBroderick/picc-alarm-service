@@ -1,0 +1,81 @@
+{
+    "name": "PICC APE页面性能告警后台服务",
+    "short_name": "APE告警后台服务",
+    "display": "standalone",
+    "background_color": "#f2f2f2",
+    "theme_color": "#ffffff",
+    "start_url": "./",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "/image/d6160ca3-26aa-2dbb-d711-74a03f1ebdea.webPlatform.png",
+            "sizes": "88x88",
+            "type": "image/png"
+        },
+        {
+            "src": "/image/0ef51433-2f46-2f03-ed69-f9e6d2fce442.webPlatform.png",
+            "sizes": "24x24",
+            "type": "image/png"
+        },
+        {
+            "src": "/image/a1aefc8b-021b-20a6-2400-1f80d9a8d2a1.webPlatform.png",
+            "sizes": "50x50",
+            "type": "image/png"
+        },
+        {
+            "src": "/image/9fd4cfd0-8d5e-9ad1-46f9-534e19656480.webPlatform.png",
+            "sizes": "620x300",
+            "type": "image/png"
+        },
+        {
+            "src": "/image/88747316-1774-3530-df0e-881cb44900ff.webPlatform.png",
+            "sizes": "96x96",
+            "type": "image/png"
+        },
+        {
+            "src": "/image/03b88ce0-43c1-f43d-aa3a-e789a74f8f1f.webPlatform.png",
+            "sizes": "72x72",
+            "type": "image/png"
+        },
+        {
+            "src": "/image/5ecf782d-a666-3f27-81d5-332a9a738a8c.webPlatform.png",
+            "sizes": "36x36",
+            "type": "image/png"
+        },
+        {
+            "src": "/image/41b04706-3ddc-e7d1-0a4e-8141ac7020d3.webPlatform.png",
+            "sizes": "1024x1024",
+            "type": "image/png"
+        },
+        {
+            "src": "/image/64f33e9c-b00d-7db4-aea8-4d78c1dc9300.webPlatform.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        },
+        {
+            "src": "/image/91a01de0-5909-284a-d7f0-847a7f46615f.webPlatform.png",
+            "sizes": "152x152",
+            "type": "image/png"
+        },
+        {
+            "src": "/image/80c908d9-44fc-e4aa-0a43-4923216acc47.webPlatform.png",
+            "sizes": "120x120",
+            "type": "image/png"
+        },
+        {
+            "src": "/image/3e4d112e-33cd-f27c-0186-040691d3ebb8.webPlatform.png",
+            "sizes": "76x76",
+            "type": "image/png"
+        },
+        {
+            "src": "/image/9132988f-a5d5-af5b-a7a9-4d99ca923442.webPlatform.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        }
+    ],
+    "url": "./",
+    "lang": "Chinese",
+    "description": "PICC APE 用户感知和行为监控系统 告警后台服务",
+    "screenshots": [],
+    "orientation": "portrait"
+}

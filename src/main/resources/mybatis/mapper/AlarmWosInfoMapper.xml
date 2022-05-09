@@ -1,0 +1,912 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ape.alarm.entity.mapper.AlarmWosInfoMapper">
+  <resultMap id="BaseResultMap" type="ape.alarm.entity.po.AlarmWosInfo">
+    <!--@mbg.generated-->
+    <!--@Table `tb_alarm_wos_info`-->
+    <id column="d_id" jdbcType="INTEGER" property="id" />
+    <result column="d_wos_id" jdbcType="INTEGER" property="wosId" />
+    <result column="d_alarm_id" jdbcType="INTEGER" property="alarmId" />
+    <result column="d_affect_system" jdbcType="VARCHAR" property="affectSystem" />
+    <result column="d_error_system" jdbcType="VARCHAR" property="errorSystem" />
+    <result column="d_place_time" jdbcType="TIMESTAMP" property="placeTime" />
+    <result column="d_affect_rate" jdbcType="DECIMAL" property="affectRate" />
+    <result column="d_affect_amplitude" jdbcType="DECIMAL" property="affectAmplitude" />
+    <result column="d_title" jdbcType="VARCHAR" property="title" />
+    <result column="d_description" jdbcType="VARCHAR" property="description" />
+    <result column="d_affect_type" jdbcType="VARCHAR" property="affectType" />
+    <result column="d_ip_address" jdbcType="VARCHAR" property="ipAddress" />
+    <result column="d_affect_area" jdbcType="VARCHAR" property="affectArea" />
+    <result column="d_recovery_time" jdbcType="TIMESTAMP" property="recoveryTime" />
+    <result column="d_fault_duration" jdbcType="VARCHAR" property="faultDuration" />
+    <result column="d_impact_function" jdbcType="VARCHAR" property="impactFunction" />
+    <result column="d_send_time" jdbcType="TIMESTAMP" property="sendTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    `d_id`, `d_wos_id`, `d_alarm_id`, `d_affect_system`, `d_error_system`, `d_place_time`, 
+    `d_affect_rate`, `d_affect_amplitude`, `d_title`, `d_description`, `d_affect_type`, 
+    `d_ip_address`, `d_affect_area`, `d_recovery_time`, `d_fault_duration`, `d_impact_function`, 
+    `d_send_time`
+  </sql>
+  <select id="selectByExample" parameterType="ape.alarm.entity.po.AlarmWosInfoExample" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from `tb_alarm_wos_info`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_alarm_wos_info`
+    where `d_id` = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from `tb_alarm_wos_info`
+    where `d_id` = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ape.alarm.entity.po.AlarmWosInfoExample">
+    <!--@mbg.generated-->
+    delete from `tb_alarm_wos_info`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="d_id" keyProperty="id" parameterType="ape.alarm.entity.po.AlarmWosInfo" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into `tb_alarm_wos_info` (`d_wos_id`, `d_alarm_id`, `d_affect_system`, 
+      `d_error_system`, `d_place_time`, `d_affect_rate`, 
+      `d_affect_amplitude`, `d_title`, `d_description`, 
+      `d_affect_type`, `d_ip_address`, `d_affect_area`, 
+      `d_recovery_time`, `d_fault_duration`, `d_impact_function`, 
+      `d_send_time`)
+    values (#{wosId,jdbcType=INTEGER}, #{alarmId,jdbcType=INTEGER}, #{affectSystem,jdbcType=VARCHAR}, 
+      #{errorSystem,jdbcType=VARCHAR}, #{placeTime,jdbcType=TIMESTAMP}, #{affectRate,jdbcType=DECIMAL}, 
+      #{affectAmplitude,jdbcType=DECIMAL}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{affectType,jdbcType=VARCHAR}, #{ipAddress,jdbcType=VARCHAR}, #{affectArea,jdbcType=VARCHAR}, 
+      #{recoveryTime,jdbcType=TIMESTAMP}, #{faultDuration,jdbcType=VARCHAR}, #{impactFunction,jdbcType=VARCHAR}, 
+      #{sendTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="d_id" keyProperty="id" parameterType="ape.alarm.entity.po.AlarmWosInfo" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into `tb_alarm_wos_info`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="wosId != null">
+        `d_wos_id`,
+      </if>
+      <if test="alarmId != null">
+        `d_alarm_id`,
+      </if>
+      <if test="affectSystem != null and affectSystem != ''">
+        `d_affect_system`,
+      </if>
+      <if test="errorSystem != null and errorSystem != ''">
+        `d_error_system`,
+      </if>
+      <if test="placeTime != null">
+        `d_place_time`,
+      </if>
+      <if test="affectRate != null">
+        `d_affect_rate`,
+      </if>
+      <if test="affectAmplitude != null">
+        `d_affect_amplitude`,
+      </if>
+      <if test="title != null and title != ''">
+        `d_title`,
+      </if>
+      <if test="description != null and description != ''">
+        `d_description`,
+      </if>
+      <if test="affectType != null and affectType != ''">
+        `d_affect_type`,
+      </if>
+      <if test="ipAddress != null and ipAddress != ''">
+        `d_ip_address`,
+      </if>
+      <if test="affectArea != null and affectArea != ''">
+        `d_affect_area`,
+      </if>
+      <if test="recoveryTime != null">
+        `d_recovery_time`,
+      </if>
+      <if test="faultDuration != null and faultDuration != ''">
+        `d_fault_duration`,
+      </if>
+      <if test="impactFunction != null and impactFunction != ''">
+        `d_impact_function`,
+      </if>
+      <if test="sendTime != null">
+        `d_send_time`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="wosId != null">
+        #{wosId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmId != null">
+        #{alarmId,jdbcType=INTEGER},
+      </if>
+      <if test="affectSystem != null and affectSystem != ''">
+        #{affectSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="errorSystem != null and errorSystem != ''">
+        #{errorSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="placeTime != null">
+        #{placeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="affectRate != null">
+        #{affectRate,jdbcType=DECIMAL},
+      </if>
+      <if test="affectAmplitude != null">
+        #{affectAmplitude,jdbcType=DECIMAL},
+      </if>
+      <if test="title != null and title != ''">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="affectType != null and affectType != ''">
+        #{affectType,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null and ipAddress != ''">
+        #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="affectArea != null and affectArea != ''">
+        #{affectArea,jdbcType=VARCHAR},
+      </if>
+      <if test="recoveryTime != null">
+        #{recoveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="faultDuration != null and faultDuration != ''">
+        #{faultDuration,jdbcType=VARCHAR},
+      </if>
+      <if test="impactFunction != null and impactFunction != ''">
+        #{impactFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null">
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ape.alarm.entity.po.AlarmWosInfoExample" resultType="java.lang.Long">
+    <!--@mbg.generated-->
+    select count(*) from `tb_alarm_wos_info`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--@mbg.generated-->
+    update `tb_alarm_wos_info`
+    <set>
+      <if test="record.id != null">
+        `d_id` = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.wosId != null">
+        `d_wos_id` = #{record.wosId,jdbcType=INTEGER},
+      </if>
+      <if test="record.alarmId != null">
+        `d_alarm_id` = #{record.alarmId,jdbcType=INTEGER},
+      </if>
+      <if test="record.affectSystem != null">
+        `d_affect_system` = #{record.affectSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errorSystem != null">
+        `d_error_system` = #{record.errorSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="record.placeTime != null">
+        `d_place_time` = #{record.placeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.affectRate != null">
+        `d_affect_rate` = #{record.affectRate,jdbcType=DECIMAL},
+      </if>
+      <if test="record.affectAmplitude != null">
+        `d_affect_amplitude` = #{record.affectAmplitude,jdbcType=DECIMAL},
+      </if>
+      <if test="record.title != null">
+        `d_title` = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        `d_description` = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.affectType != null">
+        `d_affect_type` = #{record.affectType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ipAddress != null">
+        `d_ip_address` = #{record.ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.affectArea != null">
+        `d_affect_area` = #{record.affectArea,jdbcType=VARCHAR},
+      </if>
+      <if test="record.recoveryTime != null">
+        `d_recovery_time` = #{record.recoveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.faultDuration != null">
+        `d_fault_duration` = #{record.faultDuration,jdbcType=VARCHAR},
+      </if>
+      <if test="record.impactFunction != null">
+        `d_impact_function` = #{record.impactFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sendTime != null">
+        `d_send_time` = #{record.sendTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--@mbg.generated-->
+    update `tb_alarm_wos_info`
+    set `d_id` = #{record.id,jdbcType=INTEGER},
+      `d_wos_id` = #{record.wosId,jdbcType=INTEGER},
+      `d_alarm_id` = #{record.alarmId,jdbcType=INTEGER},
+      `d_affect_system` = #{record.affectSystem,jdbcType=VARCHAR},
+      `d_error_system` = #{record.errorSystem,jdbcType=VARCHAR},
+      `d_place_time` = #{record.placeTime,jdbcType=TIMESTAMP},
+      `d_affect_rate` = #{record.affectRate,jdbcType=DECIMAL},
+      `d_affect_amplitude` = #{record.affectAmplitude,jdbcType=DECIMAL},
+      `d_title` = #{record.title,jdbcType=VARCHAR},
+      `d_description` = #{record.description,jdbcType=VARCHAR},
+      `d_affect_type` = #{record.affectType,jdbcType=VARCHAR},
+      `d_ip_address` = #{record.ipAddress,jdbcType=VARCHAR},
+      `d_affect_area` = #{record.affectArea,jdbcType=VARCHAR},
+      `d_recovery_time` = #{record.recoveryTime,jdbcType=TIMESTAMP},
+      `d_fault_duration` = #{record.faultDuration,jdbcType=VARCHAR},
+      `d_impact_function` = #{record.impactFunction,jdbcType=VARCHAR},
+      `d_send_time` = #{record.sendTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ape.alarm.entity.po.AlarmWosInfo">
+    <!--@mbg.generated-->
+    update `tb_alarm_wos_info`
+    <set>
+      <if test="wosId != null">
+        `d_wos_id` = #{wosId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmId != null">
+        `d_alarm_id` = #{alarmId,jdbcType=INTEGER},
+      </if>
+      <if test="affectSystem != null and affectSystem != ''">
+        `d_affect_system` = #{affectSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="errorSystem != null and errorSystem != ''">
+        `d_error_system` = #{errorSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="placeTime != null">
+        `d_place_time` = #{placeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="affectRate != null">
+        `d_affect_rate` = #{affectRate,jdbcType=DECIMAL},
+      </if>
+      <if test="affectAmplitude != null">
+        `d_affect_amplitude` = #{affectAmplitude,jdbcType=DECIMAL},
+      </if>
+      <if test="title != null and title != ''">
+        `d_title` = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        `d_description` = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="affectType != null and affectType != ''">
+        `d_affect_type` = #{affectType,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null and ipAddress != ''">
+        `d_ip_address` = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="affectArea != null and affectArea != ''">
+        `d_affect_area` = #{affectArea,jdbcType=VARCHAR},
+      </if>
+      <if test="recoveryTime != null">
+        `d_recovery_time` = #{recoveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="faultDuration != null and faultDuration != ''">
+        `d_fault_duration` = #{faultDuration,jdbcType=VARCHAR},
+      </if>
+      <if test="impactFunction != null and impactFunction != ''">
+        `d_impact_function` = #{impactFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null">
+        `d_send_time` = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where `d_id` = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ape.alarm.entity.po.AlarmWosInfo">
+    <!--@mbg.generated-->
+    update `tb_alarm_wos_info`
+    set `d_wos_id` = #{wosId,jdbcType=INTEGER},
+      `d_alarm_id` = #{alarmId,jdbcType=INTEGER},
+      `d_affect_system` = #{affectSystem,jdbcType=VARCHAR},
+      `d_error_system` = #{errorSystem,jdbcType=VARCHAR},
+      `d_place_time` = #{placeTime,jdbcType=TIMESTAMP},
+      `d_affect_rate` = #{affectRate,jdbcType=DECIMAL},
+      `d_affect_amplitude` = #{affectAmplitude,jdbcType=DECIMAL},
+      `d_title` = #{title,jdbcType=VARCHAR},
+      `d_description` = #{description,jdbcType=VARCHAR},
+      `d_affect_type` = #{affectType,jdbcType=VARCHAR},
+      `d_ip_address` = #{ipAddress,jdbcType=VARCHAR},
+      `d_affect_area` = #{affectArea,jdbcType=VARCHAR},
+      `d_recovery_time` = #{recoveryTime,jdbcType=TIMESTAMP},
+      `d_fault_duration` = #{faultDuration,jdbcType=VARCHAR},
+      `d_impact_function` = #{impactFunction,jdbcType=VARCHAR},
+      `d_send_time` = #{sendTime,jdbcType=TIMESTAMP}
+    where `d_id` = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllByWosId" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List" />
+        from `tb_alarm_wos_info`
+        where `d_wos_id`=#{wosId,jdbcType=INTEGER}
+    </select>
+  <select id="selectAllByAlarmId" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List" />
+        from `tb_alarm_wos_info`
+        where `d_alarm_id`=#{alarmId,jdbcType=INTEGER}
+    </select>
+  <select id="selectAllByWosIdAndSendTimeIsNotNull" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List" />
+        from `tb_alarm_wos_info`
+        where `d_wos_id`=#{wosId,jdbcType=INTEGER} and `d_send_time` is not null
+    </select>
+  <select id="selectAllByWosIdAndSendTimeIsNull" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List" />
+        from `tb_alarm_wos_info`
+        where `d_wos_id`=#{wosId,jdbcType=INTEGER} and `d_send_time` is null
+    </select>
+  <update id="updateSendTimeByWosIdAndAlarmIdIn">
+        <!--@mbg.generated-->
+        update `tb_alarm_wos_info`
+        set `d_send_time`=#{updatedSendTime,jdbcType=TIMESTAMP}
+        where `d_wos_id`=#{wosId,jdbcType=INTEGER} and `d_alarm_id` in
+        <foreach close=")" collection="alarmIdCollection" index="index" item="item" open="(" separator=",">
+            #{item,jdbcType=INTEGER}
+        </foreach>
+    </update>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update `tb_alarm_wos_info`
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="`d_wos_id` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.wosId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="`d_alarm_id` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.alarmId,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="`d_affect_system` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.affectSystem,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_error_system` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.errorSystem,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_place_time` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.placeTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="`d_affect_rate` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.affectRate,jdbcType=DECIMAL}
+        </foreach>
+      </trim>
+      <trim prefix="`d_affect_amplitude` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.affectAmplitude,jdbcType=DECIMAL}
+        </foreach>
+      </trim>
+      <trim prefix="`d_title` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.title,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_description` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.description,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_affect_type` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.affectType,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_ip_address` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.ipAddress,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_affect_area` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.affectArea,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_recovery_time` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.recoveryTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="`d_fault_duration` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.faultDuration,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_impact_function` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.impactFunction,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_send_time` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.sendTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+    </trim>
+    where `d_id` in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update `tb_alarm_wos_info`
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="`d_wos_id` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.wosId != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.wosId,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_alarm_id` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.alarmId != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.alarmId,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_affect_system` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.affectSystem != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.affectSystem,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_error_system` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.errorSystem != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.errorSystem,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_place_time` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.placeTime != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.placeTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_affect_rate` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.affectRate != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.affectRate,jdbcType=DECIMAL}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_affect_amplitude` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.affectAmplitude != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.affectAmplitude,jdbcType=DECIMAL}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_title` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.title != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.title,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_description` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.description != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.description,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_affect_type` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.affectType != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.affectType,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_ip_address` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.ipAddress != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.ipAddress,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_affect_area` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.affectArea != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.affectArea,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_recovery_time` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.recoveryTime != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.recoveryTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_fault_duration` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.faultDuration != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.faultDuration,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_impact_function` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.impactFunction != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.impactFunction,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_send_time` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.sendTime != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.sendTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where `d_id` in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="d_id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into `tb_alarm_wos_info`
+    (`d_wos_id`, `d_alarm_id`, `d_affect_system`, `d_error_system`, `d_place_time`, `d_affect_rate`, 
+      `d_affect_amplitude`, `d_title`, `d_description`, `d_affect_type`, `d_ip_address`, 
+      `d_affect_area`, `d_recovery_time`, `d_fault_duration`, `d_impact_function`, `d_send_time`
+      )
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.wosId,jdbcType=INTEGER}, #{item.alarmId,jdbcType=INTEGER}, #{item.affectSystem,jdbcType=VARCHAR}, 
+        #{item.errorSystem,jdbcType=VARCHAR}, #{item.placeTime,jdbcType=TIMESTAMP}, #{item.affectRate,jdbcType=DECIMAL}, 
+        #{item.affectAmplitude,jdbcType=DECIMAL}, #{item.title,jdbcType=VARCHAR}, #{item.description,jdbcType=VARCHAR}, 
+        #{item.affectType,jdbcType=VARCHAR}, #{item.ipAddress,jdbcType=VARCHAR}, #{item.affectArea,jdbcType=VARCHAR}, 
+        #{item.recoveryTime,jdbcType=TIMESTAMP}, #{item.faultDuration,jdbcType=VARCHAR}, 
+        #{item.impactFunction,jdbcType=VARCHAR}, #{item.sendTime,jdbcType=TIMESTAMP})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="d_id" keyProperty="id" parameterType="ape.alarm.entity.po.AlarmWosInfo" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into `tb_alarm_wos_info`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        `d_id`,
+      </if>
+      `d_wos_id`,
+      `d_alarm_id`,
+      `d_affect_system`,
+      `d_error_system`,
+      `d_place_time`,
+      `d_affect_rate`,
+      `d_affect_amplitude`,
+      `d_title`,
+      `d_description`,
+      `d_affect_type`,
+      `d_ip_address`,
+      `d_affect_area`,
+      `d_recovery_time`,
+      `d_fault_duration`,
+      `d_impact_function`,
+      `d_send_time`,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      #{wosId,jdbcType=INTEGER},
+      #{alarmId,jdbcType=INTEGER},
+      #{affectSystem,jdbcType=VARCHAR},
+      #{errorSystem,jdbcType=VARCHAR},
+      #{placeTime,jdbcType=TIMESTAMP},
+      #{affectRate,jdbcType=DECIMAL},
+      #{affectAmplitude,jdbcType=DECIMAL},
+      #{title,jdbcType=VARCHAR},
+      #{description,jdbcType=VARCHAR},
+      #{affectType,jdbcType=VARCHAR},
+      #{ipAddress,jdbcType=VARCHAR},
+      #{affectArea,jdbcType=VARCHAR},
+      #{recoveryTime,jdbcType=TIMESTAMP},
+      #{faultDuration,jdbcType=VARCHAR},
+      #{impactFunction,jdbcType=VARCHAR},
+      #{sendTime,jdbcType=TIMESTAMP},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        `d_id` = #{id,jdbcType=INTEGER},
+      </if>
+      `d_wos_id` = #{wosId,jdbcType=INTEGER},
+      `d_alarm_id` = #{alarmId,jdbcType=INTEGER},
+      `d_affect_system` = #{affectSystem,jdbcType=VARCHAR},
+      `d_error_system` = #{errorSystem,jdbcType=VARCHAR},
+      `d_place_time` = #{placeTime,jdbcType=TIMESTAMP},
+      `d_affect_rate` = #{affectRate,jdbcType=DECIMAL},
+      `d_affect_amplitude` = #{affectAmplitude,jdbcType=DECIMAL},
+      `d_title` = #{title,jdbcType=VARCHAR},
+      `d_description` = #{description,jdbcType=VARCHAR},
+      `d_affect_type` = #{affectType,jdbcType=VARCHAR},
+      `d_ip_address` = #{ipAddress,jdbcType=VARCHAR},
+      `d_affect_area` = #{affectArea,jdbcType=VARCHAR},
+      `d_recovery_time` = #{recoveryTime,jdbcType=TIMESTAMP},
+      `d_fault_duration` = #{faultDuration,jdbcType=VARCHAR},
+      `d_impact_function` = #{impactFunction,jdbcType=VARCHAR},
+      `d_send_time` = #{sendTime,jdbcType=TIMESTAMP},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="d_id" keyProperty="id" parameterType="ape.alarm.entity.po.AlarmWosInfo" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into `tb_alarm_wos_info`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        `d_id`,
+      </if>
+      <if test="wosId != null">
+        `d_wos_id`,
+      </if>
+      <if test="alarmId != null">
+        `d_alarm_id`,
+      </if>
+      <if test="affectSystem != null and affectSystem != ''">
+        `d_affect_system`,
+      </if>
+      <if test="errorSystem != null and errorSystem != ''">
+        `d_error_system`,
+      </if>
+      <if test="placeTime != null">
+        `d_place_time`,
+      </if>
+      <if test="affectRate != null">
+        `d_affect_rate`,
+      </if>
+      <if test="affectAmplitude != null">
+        `d_affect_amplitude`,
+      </if>
+      <if test="title != null and title != ''">
+        `d_title`,
+      </if>
+      <if test="description != null and description != ''">
+        `d_description`,
+      </if>
+      <if test="affectType != null and affectType != ''">
+        `d_affect_type`,
+      </if>
+      <if test="ipAddress != null and ipAddress != ''">
+        `d_ip_address`,
+      </if>
+      <if test="affectArea != null and affectArea != ''">
+        `d_affect_area`,
+      </if>
+      <if test="recoveryTime != null">
+        `d_recovery_time`,
+      </if>
+      <if test="faultDuration != null and faultDuration != ''">
+        `d_fault_duration`,
+      </if>
+      <if test="impactFunction != null and impactFunction != ''">
+        `d_impact_function`,
+      </if>
+      <if test="sendTime != null">
+        `d_send_time`,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="wosId != null">
+        #{wosId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmId != null">
+        #{alarmId,jdbcType=INTEGER},
+      </if>
+      <if test="affectSystem != null and affectSystem != ''">
+        #{affectSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="errorSystem != null and errorSystem != ''">
+        #{errorSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="placeTime != null">
+        #{placeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="affectRate != null">
+        #{affectRate,jdbcType=DECIMAL},
+      </if>
+      <if test="affectAmplitude != null">
+        #{affectAmplitude,jdbcType=DECIMAL},
+      </if>
+      <if test="title != null and title != ''">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="affectType != null and affectType != ''">
+        #{affectType,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null and ipAddress != ''">
+        #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="affectArea != null and affectArea != ''">
+        #{affectArea,jdbcType=VARCHAR},
+      </if>
+      <if test="recoveryTime != null">
+        #{recoveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="faultDuration != null and faultDuration != ''">
+        #{faultDuration,jdbcType=VARCHAR},
+      </if>
+      <if test="impactFunction != null and impactFunction != ''">
+        #{impactFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null">
+        #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        `d_id` = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="wosId != null">
+        `d_wos_id` = #{wosId,jdbcType=INTEGER},
+      </if>
+      <if test="alarmId != null">
+        `d_alarm_id` = #{alarmId,jdbcType=INTEGER},
+      </if>
+      <if test="affectSystem != null and affectSystem != ''">
+        `d_affect_system` = #{affectSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="errorSystem != null and errorSystem != ''">
+        `d_error_system` = #{errorSystem,jdbcType=VARCHAR},
+      </if>
+      <if test="placeTime != null">
+        `d_place_time` = #{placeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="affectRate != null">
+        `d_affect_rate` = #{affectRate,jdbcType=DECIMAL},
+      </if>
+      <if test="affectAmplitude != null">
+        `d_affect_amplitude` = #{affectAmplitude,jdbcType=DECIMAL},
+      </if>
+      <if test="title != null and title != ''">
+        `d_title` = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null and description != ''">
+        `d_description` = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="affectType != null and affectType != ''">
+        `d_affect_type` = #{affectType,jdbcType=VARCHAR},
+      </if>
+      <if test="ipAddress != null and ipAddress != ''">
+        `d_ip_address` = #{ipAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="affectArea != null and affectArea != ''">
+        `d_affect_area` = #{affectArea,jdbcType=VARCHAR},
+      </if>
+      <if test="recoveryTime != null">
+        `d_recovery_time` = #{recoveryTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="faultDuration != null and faultDuration != ''">
+        `d_fault_duration` = #{faultDuration,jdbcType=VARCHAR},
+      </if>
+      <if test="impactFunction != null and impactFunction != ''">
+        `d_impact_function` = #{impactFunction,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTime != null">
+        `d_send_time` = #{sendTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+</mapper>

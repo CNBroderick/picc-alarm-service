@@ -1,0 +1,806 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ape.alarm.entity.mapper.AlarmWosMapper">
+  <resultMap id="BaseResultMap" type="ape.alarm.entity.po.AlarmWos">
+    <!--@mbg.generated-->
+    <!--@Table `tb_alarm_wos`-->
+    <id column="d_id" jdbcType="INTEGER" property="id" />
+    <result column="d_uuid" jdbcType="VARCHAR" property="uuid" />
+    <result column="d_im_source" jdbcType="VARCHAR" property="imSource" />
+    <result column="d_wf_num" jdbcType="VARCHAR" property="wfNum" />
+    <result column="d_wf_id" jdbcType="VARCHAR" property="wfId" />
+    <result column="d_mnt_order" jdbcType="INTEGER" property="mntOrder" />
+    <result column="d_res_code" jdbcType="INTEGER" property="resCode" />
+    <result column="d_res_message" jdbcType="VARCHAR" property="resMessage" />
+    <result column="d_wf_title" jdbcType="VARCHAR" property="wfTitle" />
+    <result column="d_wf_desc" jdbcType="VARCHAR" property="wfDesc" />
+    <result column="d_is_save" jdbcType="VARCHAR" property="isSave" />
+    <result column="d_is_end" jdbcType="VARCHAR" property="isEnd" />
+    <result column="d_create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="d_close_time" jdbcType="TIMESTAMP" property="closeTime" />
+    <result column="d_status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--@mbg.generated-->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    `d_id`, `d_uuid`, `d_im_source`, `d_wf_num`, `d_wf_id`, `d_mnt_order`, `d_res_code`, 
+    `d_res_message`, `d_wf_title`, `d_wf_desc`, `d_is_save`, `d_is_end`, `d_create_time`, 
+    `d_close_time`, `d_status`
+  </sql>
+  <select id="selectByExample" parameterType="ape.alarm.entity.po.AlarmWosExample" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from `tb_alarm_wos`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from `tb_alarm_wos`
+    where `d_id` = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from `tb_alarm_wos`
+    where `d_id` = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="ape.alarm.entity.po.AlarmWosExample">
+    <!--@mbg.generated-->
+    delete from `tb_alarm_wos`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="d_id" keyProperty="id" parameterType="ape.alarm.entity.po.AlarmWos" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into `tb_alarm_wos` (`d_uuid`, `d_im_source`, `d_wf_num`, 
+      `d_wf_id`, `d_mnt_order`, `d_res_code`, 
+      `d_res_message`, `d_wf_title`, `d_wf_desc`, 
+      `d_is_save`, `d_is_end`, `d_create_time`, 
+      `d_close_time`, `d_status`)
+    values (#{uuid,jdbcType=VARCHAR}, #{imSource,jdbcType=VARCHAR}, #{wfNum,jdbcType=VARCHAR}, 
+      #{wfId,jdbcType=VARCHAR}, #{mntOrder,jdbcType=INTEGER}, #{resCode,jdbcType=INTEGER}, 
+      #{resMessage,jdbcType=VARCHAR}, #{wfTitle,jdbcType=VARCHAR}, #{wfDesc,jdbcType=VARCHAR}, 
+      #{isSave,jdbcType=VARCHAR}, #{isEnd,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{closeTime,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="d_id" keyProperty="id" parameterType="ape.alarm.entity.po.AlarmWos" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into `tb_alarm_wos`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null and uuid != ''">
+        `d_uuid`,
+      </if>
+      <if test="imSource != null and imSource != ''">
+        `d_im_source`,
+      </if>
+      <if test="wfNum != null and wfNum != ''">
+        `d_wf_num`,
+      </if>
+      <if test="wfId != null and wfId != ''">
+        `d_wf_id`,
+      </if>
+      <if test="mntOrder != null">
+        `d_mnt_order`,
+      </if>
+      <if test="resCode != null">
+        `d_res_code`,
+      </if>
+      <if test="resMessage != null and resMessage != ''">
+        `d_res_message`,
+      </if>
+      <if test="wfTitle != null and wfTitle != ''">
+        `d_wf_title`,
+      </if>
+      <if test="wfDesc != null and wfDesc != ''">
+        `d_wf_desc`,
+      </if>
+      <if test="isSave != null and isSave != ''">
+        `d_is_save`,
+      </if>
+      <if test="isEnd != null and isEnd != ''">
+        `d_is_end`,
+      </if>
+      <if test="createTime != null">
+        `d_create_time`,
+      </if>
+      <if test="closeTime != null">
+        `d_close_time`,
+      </if>
+      <if test="status != null and status != ''">
+        `d_status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null and uuid != ''">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="imSource != null and imSource != ''">
+        #{imSource,jdbcType=VARCHAR},
+      </if>
+      <if test="wfNum != null and wfNum != ''">
+        #{wfNum,jdbcType=VARCHAR},
+      </if>
+      <if test="wfId != null and wfId != ''">
+        #{wfId,jdbcType=VARCHAR},
+      </if>
+      <if test="mntOrder != null">
+        #{mntOrder,jdbcType=INTEGER},
+      </if>
+      <if test="resCode != null">
+        #{resCode,jdbcType=INTEGER},
+      </if>
+      <if test="resMessage != null and resMessage != ''">
+        #{resMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="wfTitle != null and wfTitle != ''">
+        #{wfTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="wfDesc != null and wfDesc != ''">
+        #{wfDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isSave != null and isSave != ''">
+        #{isSave,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnd != null and isEnd != ''">
+        #{isEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null">
+        #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null and status != ''">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="ape.alarm.entity.po.AlarmWosExample" resultType="java.lang.Long">
+    <!--@mbg.generated-->
+    select count(*) from `tb_alarm_wos`
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--@mbg.generated-->
+    update `tb_alarm_wos`
+    <set>
+      <if test="record.id != null">
+        `d_id` = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.uuid != null">
+        `d_uuid` = #{record.uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imSource != null">
+        `d_im_source` = #{record.imSource,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wfNum != null">
+        `d_wf_num` = #{record.wfNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wfId != null">
+        `d_wf_id` = #{record.wfId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mntOrder != null">
+        `d_mnt_order` = #{record.mntOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.resCode != null">
+        `d_res_code` = #{record.resCode,jdbcType=INTEGER},
+      </if>
+      <if test="record.resMessage != null">
+        `d_res_message` = #{record.resMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wfTitle != null">
+        `d_wf_title` = #{record.wfTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wfDesc != null">
+        `d_wf_desc` = #{record.wfDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isSave != null">
+        `d_is_save` = #{record.isSave,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isEnd != null">
+        `d_is_end` = #{record.isEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        `d_create_time` = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.closeTime != null">
+        `d_close_time` = #{record.closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        `d_status` = #{record.status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--@mbg.generated-->
+    update `tb_alarm_wos`
+    set `d_id` = #{record.id,jdbcType=INTEGER},
+      `d_uuid` = #{record.uuid,jdbcType=VARCHAR},
+      `d_im_source` = #{record.imSource,jdbcType=VARCHAR},
+      `d_wf_num` = #{record.wfNum,jdbcType=VARCHAR},
+      `d_wf_id` = #{record.wfId,jdbcType=VARCHAR},
+      `d_mnt_order` = #{record.mntOrder,jdbcType=INTEGER},
+      `d_res_code` = #{record.resCode,jdbcType=INTEGER},
+      `d_res_message` = #{record.resMessage,jdbcType=VARCHAR},
+      `d_wf_title` = #{record.wfTitle,jdbcType=VARCHAR},
+      `d_wf_desc` = #{record.wfDesc,jdbcType=VARCHAR},
+      `d_is_save` = #{record.isSave,jdbcType=VARCHAR},
+      `d_is_end` = #{record.isEnd,jdbcType=VARCHAR},
+      `d_create_time` = #{record.createTime,jdbcType=TIMESTAMP},
+      `d_close_time` = #{record.closeTime,jdbcType=TIMESTAMP},
+      `d_status` = #{record.status,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="ape.alarm.entity.po.AlarmWos">
+    <!--@mbg.generated-->
+    update `tb_alarm_wos`
+    <set>
+      <if test="uuid != null and uuid != ''">
+        `d_uuid` = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="imSource != null and imSource != ''">
+        `d_im_source` = #{imSource,jdbcType=VARCHAR},
+      </if>
+      <if test="wfNum != null and wfNum != ''">
+        `d_wf_num` = #{wfNum,jdbcType=VARCHAR},
+      </if>
+      <if test="wfId != null and wfId != ''">
+        `d_wf_id` = #{wfId,jdbcType=VARCHAR},
+      </if>
+      <if test="mntOrder != null">
+        `d_mnt_order` = #{mntOrder,jdbcType=INTEGER},
+      </if>
+      <if test="resCode != null">
+        `d_res_code` = #{resCode,jdbcType=INTEGER},
+      </if>
+      <if test="resMessage != null and resMessage != ''">
+        `d_res_message` = #{resMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="wfTitle != null and wfTitle != ''">
+        `d_wf_title` = #{wfTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="wfDesc != null and wfDesc != ''">
+        `d_wf_desc` = #{wfDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isSave != null and isSave != ''">
+        `d_is_save` = #{isSave,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnd != null and isEnd != ''">
+        `d_is_end` = #{isEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        `d_create_time` = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null">
+        `d_close_time` = #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null and status != ''">
+        `d_status` = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where `d_id` = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ape.alarm.entity.po.AlarmWos">
+    <!--@mbg.generated-->
+    update `tb_alarm_wos`
+    set `d_uuid` = #{uuid,jdbcType=VARCHAR},
+      `d_im_source` = #{imSource,jdbcType=VARCHAR},
+      `d_wf_num` = #{wfNum,jdbcType=VARCHAR},
+      `d_wf_id` = #{wfId,jdbcType=VARCHAR},
+      `d_mnt_order` = #{mntOrder,jdbcType=INTEGER},
+      `d_res_code` = #{resCode,jdbcType=INTEGER},
+      `d_res_message` = #{resMessage,jdbcType=VARCHAR},
+      `d_wf_title` = #{wfTitle,jdbcType=VARCHAR},
+      `d_wf_desc` = #{wfDesc,jdbcType=VARCHAR},
+      `d_is_save` = #{isSave,jdbcType=VARCHAR},
+      `d_is_end` = #{isEnd,jdbcType=VARCHAR},
+      `d_create_time` = #{createTime,jdbcType=TIMESTAMP},
+      `d_close_time` = #{closeTime,jdbcType=TIMESTAMP},
+      `d_status` = #{status,jdbcType=VARCHAR}
+    where `d_id` = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectFirstByUuid" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List" />
+        from `tb_alarm_wos`
+        where `d_uuid`=#{uuid,jdbcType=VARCHAR} limit 1
+    </select>
+  <select id="selectAllByCloseTimeIsNull" resultMap="BaseResultMap">
+        <!--@mbg.generated-->
+        select
+        <include refid="Base_Column_List" />
+        from `tb_alarm_wos`
+        where `d_close_time` is null
+    </select>
+  <update id="updateBatch" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update `tb_alarm_wos`
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="`d_uuid` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.uuid,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_im_source` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.imSource,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_wf_num` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.wfNum,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_wf_id` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.wfId,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_mnt_order` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.mntOrder,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="`d_res_code` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.resCode,jdbcType=INTEGER}
+        </foreach>
+      </trim>
+      <trim prefix="`d_res_message` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.resMessage,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_wf_title` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.wfTitle,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_wf_desc` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.wfDesc,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_is_save` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.isSave,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_is_end` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.isEnd,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="`d_create_time` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="`d_close_time` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.closeTime,jdbcType=TIMESTAMP}
+        </foreach>
+      </trim>
+      <trim prefix="`d_status` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.status,jdbcType=VARCHAR}
+        </foreach>
+      </trim>
+    </trim>
+    where `d_id` in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <update id="updateBatchSelective" parameterType="java.util.List">
+    <!--@mbg.generated-->
+    update `tb_alarm_wos`
+    <trim prefix="set" suffixOverrides=",">
+      <trim prefix="`d_uuid` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.uuid != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.uuid,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_im_source` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.imSource != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.imSource,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_wf_num` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.wfNum != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.wfNum,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_wf_id` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.wfId != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.wfId,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_mnt_order` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.mntOrder != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.mntOrder,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_res_code` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.resCode != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.resCode,jdbcType=INTEGER}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_res_message` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.resMessage != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.resMessage,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_wf_title` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.wfTitle != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.wfTitle,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_wf_desc` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.wfDesc != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.wfDesc,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_is_save` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.isSave != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.isSave,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_is_end` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.isEnd != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.isEnd,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_create_time` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.createTime != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.createTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_close_time` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.closeTime != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.closeTime,jdbcType=TIMESTAMP}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="`d_status` = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.status != null">
+            when `d_id` = #{item.id,jdbcType=INTEGER} then #{item.status,jdbcType=VARCHAR}
+          </if>
+        </foreach>
+      </trim>
+    </trim>
+    where `d_id` in
+    <foreach close=")" collection="list" item="item" open="(" separator=", ">
+      #{item.id,jdbcType=INTEGER}
+    </foreach>
+  </update>
+  <insert id="batchInsert" keyColumn="d_id" keyProperty="id" parameterType="map" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into `tb_alarm_wos`
+    (`d_uuid`, `d_im_source`, `d_wf_num`, `d_wf_id`, `d_mnt_order`, `d_res_code`, `d_res_message`, 
+      `d_wf_title`, `d_wf_desc`, `d_is_save`, `d_is_end`, `d_create_time`, `d_close_time`, 
+      `d_status`)
+    values
+    <foreach collection="list" item="item" separator=",">
+      (#{item.uuid,jdbcType=VARCHAR}, #{item.imSource,jdbcType=VARCHAR}, #{item.wfNum,jdbcType=VARCHAR}, 
+        #{item.wfId,jdbcType=VARCHAR}, #{item.mntOrder,jdbcType=INTEGER}, #{item.resCode,jdbcType=INTEGER}, 
+        #{item.resMessage,jdbcType=VARCHAR}, #{item.wfTitle,jdbcType=VARCHAR}, #{item.wfDesc,jdbcType=VARCHAR}, 
+        #{item.isSave,jdbcType=VARCHAR}, #{item.isEnd,jdbcType=VARCHAR}, #{item.createTime,jdbcType=TIMESTAMP}, 
+        #{item.closeTime,jdbcType=TIMESTAMP}, #{item.status,jdbcType=VARCHAR})
+    </foreach>
+  </insert>
+  <insert id="insertOrUpdate" keyColumn="d_id" keyProperty="id" parameterType="ape.alarm.entity.po.AlarmWos" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into `tb_alarm_wos`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        `d_id`,
+      </if>
+      `d_uuid`,
+      `d_im_source`,
+      `d_wf_num`,
+      `d_wf_id`,
+      `d_mnt_order`,
+      `d_res_code`,
+      `d_res_message`,
+      `d_wf_title`,
+      `d_wf_desc`,
+      `d_is_save`,
+      `d_is_end`,
+      `d_create_time`,
+      `d_close_time`,
+      `d_status`,
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      #{uuid,jdbcType=VARCHAR},
+      #{imSource,jdbcType=VARCHAR},
+      #{wfNum,jdbcType=VARCHAR},
+      #{wfId,jdbcType=VARCHAR},
+      #{mntOrder,jdbcType=INTEGER},
+      #{resCode,jdbcType=INTEGER},
+      #{resMessage,jdbcType=VARCHAR},
+      #{wfTitle,jdbcType=VARCHAR},
+      #{wfDesc,jdbcType=VARCHAR},
+      #{isSave,jdbcType=VARCHAR},
+      #{isEnd,jdbcType=VARCHAR},
+      #{createTime,jdbcType=TIMESTAMP},
+      #{closeTime,jdbcType=TIMESTAMP},
+      #{status,jdbcType=VARCHAR},
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        `d_id` = #{id,jdbcType=INTEGER},
+      </if>
+      `d_uuid` = #{uuid,jdbcType=VARCHAR},
+      `d_im_source` = #{imSource,jdbcType=VARCHAR},
+      `d_wf_num` = #{wfNum,jdbcType=VARCHAR},
+      `d_wf_id` = #{wfId,jdbcType=VARCHAR},
+      `d_mnt_order` = #{mntOrder,jdbcType=INTEGER},
+      `d_res_code` = #{resCode,jdbcType=INTEGER},
+      `d_res_message` = #{resMessage,jdbcType=VARCHAR},
+      `d_wf_title` = #{wfTitle,jdbcType=VARCHAR},
+      `d_wf_desc` = #{wfDesc,jdbcType=VARCHAR},
+      `d_is_save` = #{isSave,jdbcType=VARCHAR},
+      `d_is_end` = #{isEnd,jdbcType=VARCHAR},
+      `d_create_time` = #{createTime,jdbcType=TIMESTAMP},
+      `d_close_time` = #{closeTime,jdbcType=TIMESTAMP},
+      `d_status` = #{status,jdbcType=VARCHAR},
+    </trim>
+  </insert>
+  <insert id="insertOrUpdateSelective" keyColumn="d_id" keyProperty="id" parameterType="ape.alarm.entity.po.AlarmWos" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into `tb_alarm_wos`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        `d_id`,
+      </if>
+      <if test="uuid != null and uuid != ''">
+        `d_uuid`,
+      </if>
+      <if test="imSource != null and imSource != ''">
+        `d_im_source`,
+      </if>
+      <if test="wfNum != null and wfNum != ''">
+        `d_wf_num`,
+      </if>
+      <if test="wfId != null and wfId != ''">
+        `d_wf_id`,
+      </if>
+      <if test="mntOrder != null">
+        `d_mnt_order`,
+      </if>
+      <if test="resCode != null">
+        `d_res_code`,
+      </if>
+      <if test="resMessage != null and resMessage != ''">
+        `d_res_message`,
+      </if>
+      <if test="wfTitle != null and wfTitle != ''">
+        `d_wf_title`,
+      </if>
+      <if test="wfDesc != null and wfDesc != ''">
+        `d_wf_desc`,
+      </if>
+      <if test="isSave != null and isSave != ''">
+        `d_is_save`,
+      </if>
+      <if test="isEnd != null and isEnd != ''">
+        `d_is_end`,
+      </if>
+      <if test="createTime != null">
+        `d_create_time`,
+      </if>
+      <if test="closeTime != null">
+        `d_close_time`,
+      </if>
+      <if test="status != null and status != ''">
+        `d_status`,
+      </if>
+    </trim>
+    values
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uuid != null and uuid != ''">
+        #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="imSource != null and imSource != ''">
+        #{imSource,jdbcType=VARCHAR},
+      </if>
+      <if test="wfNum != null and wfNum != ''">
+        #{wfNum,jdbcType=VARCHAR},
+      </if>
+      <if test="wfId != null and wfId != ''">
+        #{wfId,jdbcType=VARCHAR},
+      </if>
+      <if test="mntOrder != null">
+        #{mntOrder,jdbcType=INTEGER},
+      </if>
+      <if test="resCode != null">
+        #{resCode,jdbcType=INTEGER},
+      </if>
+      <if test="resMessage != null and resMessage != ''">
+        #{resMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="wfTitle != null and wfTitle != ''">
+        #{wfTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="wfDesc != null and wfDesc != ''">
+        #{wfDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isSave != null and isSave != ''">
+        #{isSave,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnd != null and isEnd != ''">
+        #{isEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null">
+        #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null and status != ''">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+    on duplicate key update 
+    <trim suffixOverrides=",">
+      <if test="id != null">
+        `d_id` = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uuid != null and uuid != ''">
+        `d_uuid` = #{uuid,jdbcType=VARCHAR},
+      </if>
+      <if test="imSource != null and imSource != ''">
+        `d_im_source` = #{imSource,jdbcType=VARCHAR},
+      </if>
+      <if test="wfNum != null and wfNum != ''">
+        `d_wf_num` = #{wfNum,jdbcType=VARCHAR},
+      </if>
+      <if test="wfId != null and wfId != ''">
+        `d_wf_id` = #{wfId,jdbcType=VARCHAR},
+      </if>
+      <if test="mntOrder != null">
+        `d_mnt_order` = #{mntOrder,jdbcType=INTEGER},
+      </if>
+      <if test="resCode != null">
+        `d_res_code` = #{resCode,jdbcType=INTEGER},
+      </if>
+      <if test="resMessage != null and resMessage != ''">
+        `d_res_message` = #{resMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="wfTitle != null and wfTitle != ''">
+        `d_wf_title` = #{wfTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="wfDesc != null and wfDesc != ''">
+        `d_wf_desc` = #{wfDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isSave != null and isSave != ''">
+        `d_is_save` = #{isSave,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnd != null and isEnd != ''">
+        `d_is_end` = #{isEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        `d_create_time` = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeTime != null">
+        `d_close_time` = #{closeTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null and status != ''">
+        `d_status` = #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

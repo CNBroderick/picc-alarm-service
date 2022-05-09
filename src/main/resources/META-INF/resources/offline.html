@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <!--<base href=".">-->
+    <meta content=5 http-equiv=refresh>
+    <base href=".">
+    <title>PICC APE 用户感知和行为监察系统</title>
+    <meta content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes" name="viewport">
+    <style>        .page {
+        font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+        font-size: 1rem;
+        line-height: 1.625;
+        font-weight: 300;
+        -webkit-font-smoothing: antialiased;
+        color: hsla(214, 96%, 96%, 0.9);
+        background: hsl(214, 35%, 21%);
+        word-break: break-word;
+        padding: 0;
+        margin: 0;
+    }
+
+    .offline {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        padding: 0 24px;
+        min-height: 100vh;
+    }
+
+    .offline .content {
+        width: 100%;
+        max-width: 50em;
+        margin: 0 auto;
+    }
+
+    .offline .content .title {
+        /*background: url("") no-repeat;*/
+        background-position-x: center;
+        background-position-y: bottom;
+        background-size: 4rem 4rem;
+        display: table;
+        width: 100%;
+        box-sizing: border-box;
+        padding-bottom: 4rem;
+        text-align: center;
+    }
+
+    .offline .content .title h1 {
+        position: relative;
+        display: inline-block;
+        margin-top: 2rem;
+        margin-bottom: 0.75em;
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: hsl(214, 100%, 98%);
+    }
+
+    .offline .content .title h1::after {
+        position: absolute;
+        width: 100%;
+        height: 0.3rem;
+        content: '';
+        background: hsl(214, 100%, 98%);
+        top: -2rem;
+        left: 0;
+    }
+
+    .offline .content .message {
+        flex: 1;
+        box-sizing: border-box;
+        height: 100%;
+    }
+
+    .offline .content .message h2 {
+        text-align: center;
+        font-size: 1.75rem;
+        margin-bottom: 0.5em;
+        font-weight: 600;
+        color: hsl(214, 100%, 98%);
+    }
+
+    .offline .content .message p {
+        margin-top: 0.5em;
+        margin-bottom: 0.75em;
+    }
+
+    @media (min-width: 800px) {
+        .offline {
+            padding: 0 48px;
+        }
+
+        .offline .content .title {
+            background-position-x: right;
+            background-position-y: top;
+            background-size: 5rem 5rem;
+            width: 100%;
+            box-sizing: border-box;
+            padding-bottom: 0;
+            padding-right: 7rem;
+            text-align: left;
+        }
+
+        .offline .content .title h1, .offline .content .message h2 {
+            text-align: left;
+        }
+
+        .offline .content .message {
+            height: auto;
+        }
+    }
+    </style>
+</head>
+<body class="page">
+<div class="offline" id="offline">
+    <div class="content">
+        <header class="title"><h1>PICC APE 用户感知和行为监察系统</h1></header>
+        <section class="message"><h2>您已进入离线模式</h2>
+            <p>
+                PICC APE 用户感知和行为监察系统需要连接互联网，您现在似乎无法访问服务器。
+                <br>
+                检查您的互联网连接，然后尝试重新加载页面以使用该应用程序。
+            </p></section>
+    </div>
+</div>
+<script>
+    window.addEventListener('online', function () {
+        window.location.reload();
+    });
+</script>
+</body>
+</html>
