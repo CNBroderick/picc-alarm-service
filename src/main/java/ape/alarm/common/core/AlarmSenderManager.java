@@ -14,6 +14,7 @@ import ape.master.entity.alarm.transmission.AlarmNotificationPolicy;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -74,31 +75,36 @@ public class AlarmSenderManager {
             IAlarmSender sender = alarmSenderMap.get(entry.getKey());
             if (sender instanceof IAlarmEmailSender) {
                 ((IAlarmEmailSender) sender).sendRestored(entry.getValue());
-            } else if (sender instanceof IAlarmRestoreSender) {
-                Collection<ApeAlarm> alarms = entry.getValue().stream()
-                        .filter(a -> a.getAid() > 0 && a.getAlarm() != null)
-                        .collect(Collectors.toMap(AlarmSendLog::getAid, AlarmSendLog::getAlarm, (a, b) -> b, LinkedHashMap::new)).values();
-                alarms.forEach(a -> {
-                    try {
-                        if (((IAlarmRestoreSender) sender).restoredAlarm(a)) {
-                            log.info("恢复渠道[" + entry.getKey().name() + "]告警[alarm_id=" + a.getId() + "]成功。");
-                        } else {
-                            log.error("恢复渠道[" + entry.getKey().name() + "]告警[alarm_id=" + a.getId() + "]失败。");
-                        }
-                    } catch (Exception e) {
-                        log.error("恢复渠道[" + entry.getKey().name() + "]告警[alarm_id=" + a.getId() + "]出错，原因：" + e.getMessage(), e);
-                    }
-                });
+                continue;
             }
-
             unsupported.add(entry.getKey().name());
         }
 
         if (!unsupported.isEmpty()) {
-            throw new UnsupportedOperationException("告警恢复暂不支持渠道[" + String.join("、", unsupported) + "]的发送");
+            throw new UnsupportedOperationException("告警恢复邮件暂不支持渠道[" + String.join("、", unsupported) + "]的发送");
         }
 
         return false;
+    }
+
+    public void sendRestoreAlarms(Map<Integer, LocalDateTime> alarmIdRestoreMap) {
+        alarmIdRestoreMap.entrySet().parallelStream().forEach(alarmEntry -> {
+            for (Map.Entry<AlarmContactChannelTypeEnum, IAlarmSender> channelEntry : alarmSenderMap.entrySet()) {
+                IAlarmSender sender = channelEntry.getValue();
+                if (sender == null) continue;
+                if (sender instanceof IAlarmRestoreSender) {
+                    try {
+                        if (((IAlarmRestoreSender) sender).restoredAlarm(alarmEntry.getKey(), alarmEntry.getValue())) {
+                            log.info("恢复渠道[" + channelEntry.getKey().name() + "]告警[alarm_id=" + alarmEntry.getKey() + "]成功。");
+                        } else {
+                            log.error("恢复渠道[" + channelEntry.getKey().name() + "]告警[alarm_id=" + alarmEntry.getKey() + "]失败。");
+                        }
+                    } catch (Exception e) {
+                        log.error("恢复渠道[" + channelEntry.getKey().name() + "]告警[alarm_id=" + alarmEntry.getKey() + "]出错，原因：" + e.getMessage(), e);
+                    }
+                }
+            }
+        });
     }
 
     public boolean resend(AlarmSendLog alarmSendLog) {

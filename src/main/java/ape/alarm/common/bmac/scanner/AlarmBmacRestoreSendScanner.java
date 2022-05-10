@@ -2,6 +2,7 @@ package ape.alarm.common.bmac.scanner;
 
 import ape.alarm.common.bmac.AlarmBmacSender;
 import ape.alarm.common.bmac.core.AlarmBmacStatus;
+import ape.alarm.common.core.DelaySendAlarmManager;
 import ape.alarm.common.email.util.AlarmServiceAbilityUtil;
 import ape.alarm.entity.po.AlarmBmac;
 import ape.alarm.entity.po.AlarmBmacData;
@@ -126,8 +127,8 @@ public class AlarmBmacRestoreSendScanner {
             stringRedisTemplate.opsForSet().add(ALARM_BMAC_RESTORE_QUEUE_REDIS_KEY, bmac.id() + "");
             alarmBmacDataService.updateRequestExceptionById(getExceptionString(e), bmac.id());
         } catch (ConnectException e) {
-            log.error("连接到蓝鲸告警中心超时，重新将恢复告警[id=" + bmac.id() + "]加入发送队列。", e);
-            stringRedisTemplate.opsForSet().add(ALARM_BMAC_RESTORE_QUEUE_REDIS_KEY, bmac.id() + "");
+            log.error("连接到蓝鲸告警中心超时，将恢复告警[id=" + bmac.id() + "]加入延迟发送队列。", e);
+            DelaySendAlarmManager.getInstance().addToDelay(ALARM_BMAC_RESTORE_QUEUE_REDIS_KEY, "set", bmac.id() + "");
             alarmBmacDataService.updateRequestExceptionById(getExceptionString(e), bmac.id());
         } catch (Exception e) {
             log.error("\n### 向蓝鲸告警中心推送恢复告警[alarm_id=%d]时发生错误，原因：%s。".formatted(bmac.aid(), e.getMessage()), e);

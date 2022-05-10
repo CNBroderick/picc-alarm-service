@@ -40,6 +40,7 @@ public class ApeAlarmScheduledScanner {
     public static boolean IS_RUNNING = false;
     private static long SEND_ALARMS_COUNT = 0;
     private static long RESEND_ALARM_COUNT = 0;
+    private static long RESEND_ALARM_MINUTES_REMAINING = 60;
     private static List<ApeAlarm> currentSend;
     private static Map<ApeAlarm, List<AlarmSendLog>> currentResend;
     private final Logger logger = LoggerFactory.getLogger(getClass());
@@ -72,9 +73,15 @@ public class ApeAlarmScheduledScanner {
             IS_RUNNING = true;
             RunningTime runningTime = new RunningTime();
             ParameterEnum.告警系统.告警系统运行状态.setValue("正在运行");
+            RESEND_ALARM_MINUTES_REMAINING++;
             int id = printAlive();
             int sendAlarms = processWaitingSendAlarms();
-            int errorSendAlarms = processErrorSendAlarms();
+            int errorSendAlarms = 0;
+            if (RESEND_ALARM_MINUTES_REMAINING < 1) {
+                errorSendAlarms = processErrorSendAlarms();
+                RESEND_ALARM_MINUTES_REMAINING = 60;
+            }
+
             int waitingSendAlarms = processWaitingSendAlarmLogs();
 
             ApeAlarmScheduledScanner.SEND_ALARMS_COUNT += sendAlarms;

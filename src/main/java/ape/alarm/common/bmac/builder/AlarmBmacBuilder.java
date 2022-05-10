@@ -46,7 +46,7 @@ public class AlarmBmacBuilder {
                 .status(AlarmBmacStatus.待创建.name())
                 .ip(alarm.getAlarmId())
                 .level(AlarmBmacLevel.warning.name())
-        ;
+                ;
     }
 
     private AlarmBmacData createAlarmBmacData(int bmacId) {
@@ -61,9 +61,9 @@ public class AlarmBmacBuilder {
         AlarmEmailRenderRecordset renderRecordset = new AlarmEmailRenderRecordset();
         AbstractAlarmEmailBuilder builder = AlarmContentRenderManger.getInstance().get(alarm.getAlarmType());
         builder.createTable(alarm, renderRecordset);
-        return builder.createSummary(alarm) + "\n\n" + Arrays.stream(renderRecordset.getRecords()).map(record ->
-                record.getString(AlarmEmailRenderRecordset.FIELD_NAME) + "：" + record.getString(AlarmEmailRenderRecordset.FIELD_VALUE)
-        ).collect(Collectors.joining("\n"));
+        return builder.createSummary(alarm).replaceFirst("，告警详情如下：", "。") + "\n\n" + Arrays.stream(renderRecordset.getRecords())
+                .map(record -> record.getString(AlarmEmailRenderRecordset.FIELD_NAME) + "：" + record.getString(AlarmEmailRenderRecordset.FIELD_VALUE))
+                .collect(Collectors.joining("\n"));
     }
 
 

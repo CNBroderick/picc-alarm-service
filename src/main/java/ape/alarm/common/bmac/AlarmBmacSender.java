@@ -80,21 +80,21 @@ public class AlarmBmacSender implements IAlarmSender, IAlarmRestoreSender {
 
 
     @Override
-    public boolean restoredAlarm(ApeAlarm alarm) {
+    public boolean restoredAlarm(int alarmId, LocalDateTime restoreTime) {
         AlarmBmacExample alarmBmacExample = new AlarmBmacExample();
-        alarmBmacExample.createCriteria().andAidEqualTo(alarm.getId());
+        alarmBmacExample.createCriteria().andAidEqualTo(alarmId);
         List<AlarmBmac> alarmBmacList = alarmBmacService.selectByExample(alarmBmacExample);
-        if(alarmBmacList.isEmpty()) {
+        if (alarmBmacList.isEmpty()) {
             log.info("告警[alarm_id=%d]未推送到蓝鲸告警中心，无需推送恢复消息。");
             return true;
         }
         AlarmBmacDataExample alarmBmacDataExample = new AlarmBmacDataExample();
-        alarmBmacDataExample.createCriteria().andAidEqualTo(alarm.getId());
+        alarmBmacDataExample.createCriteria().andAidEqualTo(alarmId);
         Map<Integer, AlarmBmacData> dataMap = alarmBmacDataService.selectByExample(alarmBmacDataExample)
                 .stream().collect(Collectors.toMap(AlarmBmacData::id, Function.identity(), (a, b) -> b, LinkedHashMap::new));
 
         for (AlarmBmac bmac : alarmBmacList) {
-            bmac.closeTime(LocalDateTime.now()).action(AlarmBmacAction.resolved.name());
+            bmac.closeTime(restoreTime).action(AlarmBmacAction.resolved.name());
             alarmBmacService.updateByPrimaryKey(bmac);
 
             AlarmBmacData data = dataMap.get(bmac.id());
@@ -106,4 +106,5 @@ public class AlarmBmacSender implements IAlarmSender, IAlarmRestoreSender {
 
         return true;
     }
+
 }

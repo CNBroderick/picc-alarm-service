@@ -39,8 +39,9 @@ public class ApeAlarmRestoredScanner {
             IS_RUNNING = true;
             RunningTime runningTime = new RunningTime();
             Map<Integer, LocalDateTime> restoredTimeMap = findNotRestoredAlarmId(Duration.ofSeconds((long)
-                    ParameterEnum.告警系统.告警恢复等待时间.getEntryValue(15d) * 60L));
-            int sendRestoreAlarms = sendRestoreAlarms(restoredTimeMap);
+                                                                                                            ParameterEnum.告警系统.告警恢复等待时间.getEntryValue(15d) * 60L));
+            int sendRestoreAlarms = sendRestoreAlarmsEmail(restoredTimeMap);
+            sendRestoreAlarms(restoredTimeMap);
             log.info("APE告警恢复发送服务执行完毕，线程ID = {}，恢复告警 = {}条，发送告警恢复通知 = {}条，用时 = {}。",
                     Thread.currentThread().getId(), restoredTimeMap.size(), sendRestoreAlarms, runningTime.time());
         } catch (Exception e) {
@@ -51,10 +52,14 @@ public class ApeAlarmRestoredScanner {
         }
     }
 
-    private int sendRestoreAlarms(Map<Integer, LocalDateTime> restoredTimeMap) {
+    private int sendRestoreAlarmsEmail(Map<Integer, LocalDateTime> restoredTimeMap) {
         List<AlarmSendLog> sendLogs = queryAlarmSendLogs(restoredTimeMap.keySet());
         AlarmSenderManager.getInstance().sendRestore(sendLogs);
         return sendLogs.size();
+    }
+
+    private void sendRestoreAlarms(Map<Integer, LocalDateTime> restoredTimeMap) {
+        AlarmSenderManager.getInstance().sendRestoreAlarms(restoredTimeMap);
     }
 
     private Map<Integer, LocalDateTime> findNotRestoredAlarmId(Duration duration) {

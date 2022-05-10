@@ -30,7 +30,7 @@ public class AlarmServiceAbilityUtil {
 
     public void writeRunTime() {
         try {
-            lastRunTime.setValue("正在运行[自"+LocalDateTimeFormatter.Short(LocalDateTime.now())+"开始]");
+            lastRunTime.setValue(LocalDateTimeFormatter.Short(LocalDateTime.now()));
         } catch (Exception e) {
             log.error("写入参数[" + lastRunTime.getName() + "]失败。", e);
         }
@@ -47,7 +47,7 @@ public class AlarmServiceAbilityUtil {
 
     public void writeRunning() {
         try {
-            lastRunTime.setValue(LocalDateTimeFormatter.Short(LocalDateTime.now()));
+            lastRunTime.setValue("正在运行[自" + LocalDateTimeFormatter.Short(LocalDateTime.now()) + "开始]");
         } catch (Exception e) {
             log.error("写入参数[" + lastRunTime.getName() + "]失败。", e);
         }

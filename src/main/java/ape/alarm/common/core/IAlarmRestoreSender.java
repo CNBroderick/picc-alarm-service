@@ -1,8 +1,8 @@
 package ape.alarm.common.core;
 
-import ape.alarm.entity.alarm.ApeAlarm;
+import java.time.LocalDateTime;
 
 public interface IAlarmRestoreSender extends IAlarmSender {
 
-    boolean restoredAlarm(ApeAlarm alarm);
+    boolean restoredAlarm(int alarmId, LocalDateTime restoreTime);
 }

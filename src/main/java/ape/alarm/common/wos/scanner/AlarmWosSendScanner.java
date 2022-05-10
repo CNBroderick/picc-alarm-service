@@ -1,5 +1,6 @@
 package ape.alarm.common.wos.scanner;
 
+import ape.alarm.common.core.DelaySendAlarmManager;
 import ape.alarm.common.email.util.AlarmServiceAbilityUtil;
 import ape.alarm.common.wos.AlarmWosSender;
 import ape.alarm.common.wos.core.AlarmWosStatus;
@@ -120,8 +121,8 @@ public class AlarmWosSendScanner {
 
             alarmWosInfoService.updateSendTimeByWosIdAndAlarmIdIn(LocalDateTime.now(), alarmWos.getId(), alarmIds);
         } catch (ConnectException e) {
-            log.error("连接到告警工单服务器超时，重新将工单[" + json.string("uuid") + "]加入发送队列。", e);
-            stringRedisTemplate.opsForSet().add(ALARM_WOS_SEND_QUEUE_REDIS_KEY, postData);
+            log.error("连接到告警工单服务器超时，将工单[" + json.string("uuid") + "]加入延迟发送队列。", e);
+            DelaySendAlarmManager.getInstance().addToDelay(ALARM_WOS_SEND_QUEUE_REDIS_KEY, "set", postData);
         } catch (Exception e) {
             log.error("发送告警工单[" + json.string("uuid") + "]时出错。", e);
             stringRedisTemplate.opsForSet().add(ALARM_WOS_SEND_QUEUE_REDIS_KEY, postData);
