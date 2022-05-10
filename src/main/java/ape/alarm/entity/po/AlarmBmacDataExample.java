@@ -16,20 +16,20 @@ public class AlarmBmacDataExample {
         oredCriteria = new ArrayList<>();
     }
 
-    public String getOrderByClause() {
-        return orderByClause;
-    }
-
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
     }
 
-    public boolean isDistinct() {
-        return distinct;
+    public String getOrderByClause() {
+        return orderByClause;
     }
 
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
+    }
+
+    public boolean isDistinct() {
+        return distinct;
     }
 
     public List<Criteria> getOredCriteria() {
@@ -95,7 +95,7 @@ public class AlarmBmacDataExample {
             if (value == null) {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
-            requestCriteria.add(new Criterion(condition, value, "ape.master.entity.convertor.JsonObjectAttributeConverter"));
+            requestCriteria.add(new Criterion(condition, value, "ape.alarm.entity.typehandler.JsonObjectTypeHandler"));
             allCriteria = null;
         }
 
@@ -103,7 +103,7 @@ public class AlarmBmacDataExample {
             if (value1 == null || value2 == null) {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
-            requestCriteria.add(new Criterion(condition, value1, value2, "ape.master.entity.convertor.JsonObjectAttributeConverter"));
+            requestCriteria.add(new Criterion(condition, value1, value2, "ape.alarm.entity.typehandler.JsonObjectTypeHandler"));
             allCriteria = null;
         }
 
@@ -115,7 +115,7 @@ public class AlarmBmacDataExample {
             if (value == null) {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
-            responseCriteria.add(new Criterion(condition, value, "ape.master.entity.convertor.JsonObjectAttributeConverter"));
+            responseCriteria.add(new Criterion(condition, value, "ape.alarm.entity.typehandler.JsonObjectTypeHandler"));
             allCriteria = null;
         }
 
@@ -123,7 +123,7 @@ public class AlarmBmacDataExample {
             if (value1 == null || value2 == null) {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
-            responseCriteria.add(new Criterion(condition, value1, value2, "ape.master.entity.convertor.JsonObjectAttributeConverter"));
+            responseCriteria.add(new Criterion(condition, value1, value2, "ape.alarm.entity.typehandler.JsonObjectTypeHandler"));
             allCriteria = null;
         }
 
@@ -135,7 +135,7 @@ public class AlarmBmacDataExample {
             if (value == null) {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
-            restoreRequestCriteria.add(new Criterion(condition, value, "ape.master.entity.convertor.JsonObjectAttributeConverter"));
+            restoreRequestCriteria.add(new Criterion(condition, value, "ape.alarm.entity.typehandler.JsonObjectTypeHandler"));
             allCriteria = null;
         }
 
@@ -143,7 +143,7 @@ public class AlarmBmacDataExample {
             if (value1 == null || value2 == null) {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
-            restoreRequestCriteria.add(new Criterion(condition, value1, value2, "ape.master.entity.convertor.JsonObjectAttributeConverter"));
+            restoreRequestCriteria.add(new Criterion(condition, value1, value2, "ape.alarm.entity.typehandler.JsonObjectTypeHandler"));
             allCriteria = null;
         }
 
@@ -155,7 +155,7 @@ public class AlarmBmacDataExample {
             if (value == null) {
                 throw new RuntimeException("Value for " + property + " cannot be null");
             }
-            restoreResponseCriteria.add(new Criterion(condition, value, "ape.master.entity.convertor.JsonObjectAttributeConverter"));
+            restoreResponseCriteria.add(new Criterion(condition, value, "ape.alarm.entity.typehandler.JsonObjectTypeHandler"));
             allCriteria = null;
         }
 
@@ -163,7 +163,7 @@ public class AlarmBmacDataExample {
             if (value1 == null || value2 == null) {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
-            restoreResponseCriteria.add(new Criterion(condition, value1, value2, "ape.master.entity.convertor.JsonObjectAttributeConverter"));
+            restoreResponseCriteria.add(new Criterion(condition, value1, value2, "ape.alarm.entity.typehandler.JsonObjectTypeHandler"));
             allCriteria = null;
         }
 
@@ -734,6 +734,146 @@ public class AlarmBmacDataExample {
             addRestoreResponseCriterion("d_restore_response not between", value1, value2, "restoreResponse");
             return (Criteria) this;
         }
+
+        public Criteria andRequestExceptionIsNull() {
+            addCriterion("d_request_exception is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRequestExceptionIsNotNull() {
+            addCriterion("d_request_exception is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRequestExceptionEqualTo(String value) {
+            addCriterion("d_request_exception =", value, "requestException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRequestExceptionNotEqualTo(String value) {
+            addCriterion("d_request_exception <>", value, "requestException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRequestExceptionGreaterThan(String value) {
+            addCriterion("d_request_exception >", value, "requestException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRequestExceptionGreaterThanOrEqualTo(String value) {
+            addCriterion("d_request_exception >=", value, "requestException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRequestExceptionLessThan(String value) {
+            addCriterion("d_request_exception <", value, "requestException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRequestExceptionLessThanOrEqualTo(String value) {
+            addCriterion("d_request_exception <=", value, "requestException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRequestExceptionLike(String value) {
+            addCriterion("d_request_exception like", value, "requestException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRequestExceptionNotLike(String value) {
+            addCriterion("d_request_exception not like", value, "requestException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRequestExceptionIn(List<String> values) {
+            addCriterion("d_request_exception in", values, "requestException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRequestExceptionNotIn(List<String> values) {
+            addCriterion("d_request_exception not in", values, "requestException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRequestExceptionBetween(String value1, String value2) {
+            addCriterion("d_request_exception between", value1, value2, "requestException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRequestExceptionNotBetween(String value1, String value2) {
+            addCriterion("d_request_exception not between", value1, value2, "requestException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestoreExceptionIsNull() {
+            addCriterion("d_restore_exception is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestoreExceptionIsNotNull() {
+            addCriterion("d_restore_exception is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestoreExceptionEqualTo(String value) {
+            addCriterion("d_restore_exception =", value, "restoreException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestoreExceptionNotEqualTo(String value) {
+            addCriterion("d_restore_exception <>", value, "restoreException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestoreExceptionGreaterThan(String value) {
+            addCriterion("d_restore_exception >", value, "restoreException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestoreExceptionGreaterThanOrEqualTo(String value) {
+            addCriterion("d_restore_exception >=", value, "restoreException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestoreExceptionLessThan(String value) {
+            addCriterion("d_restore_exception <", value, "restoreException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestoreExceptionLessThanOrEqualTo(String value) {
+            addCriterion("d_restore_exception <=", value, "restoreException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestoreExceptionLike(String value) {
+            addCriterion("d_restore_exception like", value, "restoreException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestoreExceptionNotLike(String value) {
+            addCriterion("d_restore_exception not like", value, "restoreException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestoreExceptionIn(List<String> values) {
+            addCriterion("d_restore_exception in", values, "restoreException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestoreExceptionNotIn(List<String> values) {
+            addCriterion("d_restore_exception not in", values, "restoreException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestoreExceptionBetween(String value1, String value2) {
+            addCriterion("d_restore_exception between", value1, value2, "restoreException");
+            return (Criteria) this;
+        }
+
+        public Criteria andRestoreExceptionNotBetween(String value1, String value2) {
+            addCriterion("d_restore_exception not between", value1, value2, "restoreException");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
@@ -745,13 +885,52 @@ public class AlarmBmacDataExample {
 
     public static class Criterion {
         private final String condition;
-        private final String typeHandler;
+
         private Object value;
+
         private Object secondValue;
+
         private boolean noValue;
+
         private boolean singleValue;
+
         private boolean betweenValue;
+
         private boolean listValue;
+
+        private final String typeHandler;
+
+        public String getCondition() {
+            return condition;
+        }
+
+        public Object getValue() {
+            return value;
+        }
+
+        public Object getSecondValue() {
+            return secondValue;
+        }
+
+        public boolean isNoValue() {
+            return noValue;
+        }
+
+        public boolean isSingleValue() {
+            return singleValue;
+        }
+
+        public boolean isBetweenValue() {
+            return betweenValue;
+        }
+
+        public boolean isListValue() {
+            return listValue;
+        }
+
+        public String getTypeHandler() {
+            return typeHandler;
+        }
 
         protected Criterion(String condition) {
             super();
@@ -787,38 +966,6 @@ public class AlarmBmacDataExample {
 
         protected Criterion(String condition, Object value, Object secondValue) {
             this(condition, value, secondValue, null);
-        }
-
-        public String getCondition() {
-            return condition;
-        }
-
-        public Object getValue() {
-            return value;
-        }
-
-        public Object getSecondValue() {
-            return secondValue;
-        }
-
-        public boolean isNoValue() {
-            return noValue;
-        }
-
-        public boolean isSingleValue() {
-            return singleValue;
-        }
-
-        public boolean isBetweenValue() {
-            return betweenValue;
-        }
-
-        public boolean isListValue() {
-            return listValue;
-        }
-
-        public String getTypeHandler() {
-            return typeHandler;
         }
     }
 }

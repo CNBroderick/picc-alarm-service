@@ -11,6 +11,7 @@ import ape.master.common.parameter.ParameterEnum;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.ssl.SSLContextBuilder;
 import org.bklab.quark.util.json.GsonJsonObjectUtil;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -18,6 +19,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.ConnectException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -106,13 +109,21 @@ public class AlarmBmacSendScanner {
         return getNextId();
     }
 
+    public static HttpClient createHttpClient() {
+        try {
+            return HttpClient.newBuilder().sslContext(SSLContextBuilder.create().loadTrustMaterial(null, (x509Certificates, s) -> true).build()).build();
+        } catch (Exception e) {
+            return HttpClient.newHttpClient();
+        }
+    }
+
     private void doSend(AlarmBmac bmac, AlarmBmacData data) {
         String httpResponseBody = "";
         try {
             GsonJsonObjectUtil json = new GsonJsonObjectUtil(data.request());
             log.info("\n### 向蓝鲸告警中心推送工单[alarm_id=" + bmac.aid() + "]\nPOST " + uri.toString() + "\n" + json.pretty());
 
-            HttpResponse<String> httpResponse = HttpClient.newHttpClient().send(HttpRequest.newBuilder().header("X-Secret", xSecret)
+            HttpResponse<String> httpResponse = createHttpClient().send(HttpRequest.newBuilder().header("X-Secret", xSecret)
                     .uri(uri).POST(HttpRequest.BodyPublishers.ofString(data.request().toString(), StandardCharsets.UTF_8))
                     .build(), HttpResponse.BodyHandlers.ofString());
             httpResponseBody = httpResponse.body();
@@ -131,12 +142,21 @@ public class AlarmBmacSendScanner {
         } catch (com.google.gson.JsonSyntaxException e) {
             log.error("解析蓝鲸告警中心返回结果失败[id=" + bmac.id() + "]，内容：\n" + httpResponseBody, e);
             stringRedisTemplate.opsForSet().add(ALARM_BMAC_SEND_QUEUE_REDIS_KEY, bmac.id() + "");
+            alarmBmacDataService.updateRequestExceptionById(getExceptionString(e), bmac.id());
         } catch (ConnectException e) {
             log.error("连接到蓝鲸告警中心超时，重新将告警[id=" + bmac.id() + "]加入发送队列。", e);
             stringRedisTemplate.opsForSet().add(ALARM_BMAC_SEND_QUEUE_REDIS_KEY, bmac.id() + "");
+            alarmBmacDataService.updateRequestExceptionById(getExceptionString(e), bmac.id());
         } catch (Exception e) {
+            alarmBmacDataService.updateRequestExceptionById(getExceptionString(e), bmac.id());
             log.error("\n### 向蓝鲸告警中心推送告警[alarm_id=%d]时发生错误，原因：%s。".formatted(bmac.aid(), e.getMessage()), e);
         }
+    }
+
+    private String getExceptionString(Exception e) {
+        StringWriter writer = new StringWriter();
+        e.printStackTrace(new PrintWriter(writer));
+        return writer.toString();
     }
 
     private Integer getNextId() {

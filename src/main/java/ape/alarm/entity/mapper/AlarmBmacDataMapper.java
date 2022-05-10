@@ -80,13 +80,19 @@ public interface AlarmBmacDataMapper {
 
     int updateRequestById(@Param("updatedRequest") JsonObject updatedRequest, @Param("id") Integer id);
 
-    int UpdateCodeAndResponseById(@Param("updatedCode") Integer updatedCode, @Param("updatedResponse") JsonObject updatedResponse, @Param("id") Integer id);
+    int updateCodeAndResponseById(@Param("updatedCode") Integer updatedCode, @Param("updatedResponse") JsonObject updatedResponse, @Param("id") Integer id);
 
     AlarmBmacData getById(@Param("id") Integer id);
+
+    int updateRequestExceptionById(@Param("updatedRequestException") String updatedRequestException, @Param("id") Integer id);
+
+    int updateRestoreExceptionById(@Param("updatedRestoreException") String updatedRestoreException, @Param("id") Integer id);
 
     int updateBatch(List<AlarmBmacData> list);
 
     int updateBatchSelective(List<AlarmBmacData> list);
 
     int batchInsert(@Param("list") List<AlarmBmacData> list);
+
+    int UpdateCodeAndResponseById(@Param("updatedCode") Integer updatedCode, @Param("updatedResponse") JsonObject updatedResponse, @Param("id") Integer id);
 }

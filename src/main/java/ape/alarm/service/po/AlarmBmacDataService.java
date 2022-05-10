@@ -108,4 +108,17 @@ public class AlarmBmacDataService {
     public AlarmBmacData getById(Integer id) {
         return alarmBmacDataMapper.getById(id);
     }
+
+    public int updateCodeAndResponseById(Integer updatedCode, JsonObject updatedResponse, Integer id) {
+        return alarmBmacDataMapper.updateCodeAndResponseById(updatedCode, updatedResponse, id);
+    }
+
+    public int updateRequestExceptionById(String updatedRequestException, Integer id) {
+        return alarmBmacDataMapper.updateRequestExceptionById(updatedRequestException, id);
+    }
+
+    public int updateRestoreExceptionById(String updatedRestoreException, Integer id) {
+        return alarmBmacDataMapper.updateRestoreExceptionById(updatedRestoreException, id);
+    }
 }
+

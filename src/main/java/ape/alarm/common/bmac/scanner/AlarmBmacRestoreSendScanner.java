@@ -18,9 +18,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.ConnectException;
 import java.net.URI;
-import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
@@ -98,15 +99,17 @@ public class AlarmBmacRestoreSendScanner {
     }
 
     private void doSend(AlarmBmac bmac, AlarmBmacData data) {
+        String httpResponseBody = "";
         try {
             GsonJsonObjectUtil json = new GsonJsonObjectUtil(data.request());
             log.info("\n### 向蓝鲸告警中心推送恢复告警[alarm_id=" + bmac.aid() + "]\nPOST " + uri.toString() + "\n" + json.pretty());
 
-            HttpResponse<String> httpResponse = HttpClient.newHttpClient().send(HttpRequest.newBuilder().header("X-Secret", xSecret)
-                    .uri(uri).POST(HttpRequest.BodyPublishers.ofString(data.restoreRequest().toString(), StandardCharsets.UTF_8))
-                    .build(), HttpResponse.BodyHandlers.ofString());
-
-            GsonJsonObjectUtil response = new GsonJsonObjectUtil(httpResponse.body());
+            HttpResponse<String> httpResponse = AlarmBmacSendScanner.createHttpClient()
+                    .send(HttpRequest.newBuilder().header("X-Secret", xSecret)
+                            .uri(uri).POST(HttpRequest.BodyPublishers.ofString(data.restoreRequest().toString(), StandardCharsets.UTF_8))
+                            .build(), HttpResponse.BodyHandlers.ofString());
+            httpResponseBody = httpResponse.body();
+            GsonJsonObjectUtil response = new GsonJsonObjectUtil(httpResponseBody);
             log.info("\n### 蓝鲸告警中心返回恢复告警[alarm_id=%d]结果：\n%s".formatted(bmac.aid(), response.pretty()));
             int code = response.getInt("code");
             String message = response.string("message");
@@ -118,12 +121,24 @@ public class AlarmBmacRestoreSendScanner {
             }
             alarmBmacService.updateByPrimaryKey(bmac.status(status.name()));
             alarmBmacDataService.updateByPrimaryKey(data.restoreCode(code).restoreResponse(response.get()));
+        } catch (com.google.gson.JsonSyntaxException e) {
+            log.error("解析蓝鲸告警中心返回结果失败[id=" + bmac.id() + "]，内容：\n" + httpResponseBody, e);
+            stringRedisTemplate.opsForSet().add(ALARM_BMAC_RESTORE_QUEUE_REDIS_KEY, bmac.id() + "");
+            alarmBmacDataService.updateRequestExceptionById(getExceptionString(e), bmac.id());
         } catch (ConnectException e) {
             log.error("连接到蓝鲸告警中心超时，重新将恢复告警[id=" + bmac.id() + "]加入发送队列。", e);
             stringRedisTemplate.opsForSet().add(ALARM_BMAC_RESTORE_QUEUE_REDIS_KEY, bmac.id() + "");
+            alarmBmacDataService.updateRequestExceptionById(getExceptionString(e), bmac.id());
         } catch (Exception e) {
             log.error("\n### 向蓝鲸告警中心推送恢复告警[alarm_id=%d]时发生错误，原因：%s。".formatted(bmac.aid(), e.getMessage()), e);
+            alarmBmacDataService.updateRequestExceptionById(getExceptionString(e), bmac.id());
         }
+    }
+
+    private String getExceptionString(Exception e) {
+        StringWriter writer = new StringWriter();
+        e.printStackTrace(new PrintWriter(writer));
+        return writer.toString();
     }
 
     private Integer getNextId() {

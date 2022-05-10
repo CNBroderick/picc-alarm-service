@@ -3,15 +3,18 @@
 <mapper namespace="ape.alarm.entity.mapper.AlarmBmacDataMapper">
   <resultMap id="BaseResultMap" type="ape.alarm.entity.po.AlarmBmacData">
     <!--@mbg.generated-->
-    <!--@Table tb_alarm_bmac_data-->
-    <id column="d_id" jdbcType="INTEGER" property="id" />
-    <result column="d_aid" jdbcType="INTEGER" property="aid" />
-    <result column="d_code" jdbcType="INTEGER" property="code" />
-    <result column="d_restore_code" jdbcType="INTEGER" property="restoreCode" />
-    <result column="d_request" jdbcType="VARCHAR" property="request" typeHandler="ape.alarm.entity.typehandler.JsonObjectTypeHandler" />
-    <result column="d_response" jdbcType="VARCHAR" property="response" typeHandler="ape.alarm.entity.typehandler.JsonObjectTypeHandler" />
-    <result column="d_restore_request" jdbcType="VARCHAR" property="restoreRequest" typeHandler="ape.alarm.entity.typehandler.JsonObjectTypeHandler" />
-    <result column="d_restore_response" jdbcType="VARCHAR" property="restoreResponse" typeHandler="ape.alarm.entity.typehandler.JsonObjectTypeHandler" />
+    <!--@Table `tb_alarm_bmac_data`-->
+    <id column="d_id" jdbcType="INTEGER" property="id"/>
+    <result column="d_aid" jdbcType="INTEGER" property="aid"/>
+    <result column="d_code" jdbcType="INTEGER" property="code"/>
+    <result column="d_restore_code" jdbcType="INTEGER" property="restoreCode"/>
+    <result column="d_request" jdbcType="VARCHAR" property="request" typeHandler="ape.alarm.entity.typehandler.JsonObjectTypeHandler"/>
+    <result column="d_response" jdbcType="VARCHAR" property="response" typeHandler="ape.alarm.entity.typehandler.JsonObjectTypeHandler"/>
+    <result column="d_restore_request" jdbcType="VARCHAR" property="restoreRequest" typeHandler="ape.alarm.entity.typehandler.JsonObjectTypeHandler"/>
+    <result column="d_restore_response" jdbcType="VARCHAR" property="restoreResponse"
+            typeHandler="ape.alarm.entity.typehandler.JsonObjectTypeHandler"/>
+    <result column="d_request_exception" jdbcType="LONGVARCHAR" property="requestException"/>
+    <result column="d_restore_exception" jdbcType="LONGVARCHAR" property="restoreException"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--@mbg.generated-->
@@ -227,7 +230,8 @@
   </sql>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    d_id, d_aid, d_code, d_restore_code, d_request, d_response, d_restore_request, d_restore_response
+    d_id, d_aid, d_code, d_restore_code, d_request, d_response, d_restore_request, d_restore_response,
+    d_request_exception, d_restore_exception
   </sql>
   <select id="selectByExample" parameterType="ape.alarm.entity.po.AlarmBmacDataExample" resultMap="BaseResultMap">
     <!--@mbg.generated-->
@@ -265,18 +269,20 @@
   </delete>
   <insert id="insert" parameterType="ape.alarm.entity.po.AlarmBmacData">
     <!--@mbg.generated-->
-    insert into tb_alarm_bmac_data (d_id, d_aid, d_code, 
-      d_restore_code, d_request, 
-      d_response, 
-      d_restore_request, 
-      d_restore_response
-      )
-    values (#{id,jdbcType=INTEGER}, #{aid,jdbcType=INTEGER}, #{code,jdbcType=INTEGER}, 
-      #{restoreCode,jdbcType=INTEGER}, #{request,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}, 
-      #{response,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}, 
-      #{restoreRequest,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}, 
-      #{restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}
-      )
+    insert into tb_alarm_bmac_data (d_id, d_aid, d_code,
+    d_restore_code, d_request,
+    d_response,
+    d_restore_request,
+    d_restore_response,
+    d_request_exception, d_restore_exception
+    )
+    values (#{id,jdbcType=INTEGER}, #{aid,jdbcType=INTEGER}, #{code,jdbcType=INTEGER},
+    #{restoreCode,jdbcType=INTEGER}, #{request,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    #{response,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    #{restoreRequest,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    #{restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    #{requestException,jdbcType=LONGVARCHAR}, #{restoreException,jdbcType=LONGVARCHAR}
+    )
   </insert>
   <insert id="insertSelective" parameterType="ape.alarm.entity.po.AlarmBmacData">
     <!--@mbg.generated-->
@@ -306,6 +312,12 @@
       <if test="restoreResponse != null">
         d_restore_response,
       </if>
+      <if test="requestException != null">
+        d_request_exception,
+      </if>
+      <if test="restoreException != null">
+        d_restore_exception,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -331,6 +343,12 @@
       </if>
       <if test="restoreResponse != null">
         #{restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+      </if>
+      <if test="requestException != null">
+        #{requestException,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="restoreException != null">
+        #{restoreException,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -369,6 +387,12 @@
       <if test="record.restoreResponse != null">
         d_restore_response = #{record.restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
       </if>
+      <if test="record.requestException != null">
+        d_request_exception = #{record.requestException,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.restoreException != null">
+        d_restore_exception = #{record.restoreException,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -378,13 +402,15 @@
     <!--@mbg.generated-->
     update tb_alarm_bmac_data
     set d_id = #{record.id,jdbcType=INTEGER},
-      d_aid = #{record.aid,jdbcType=INTEGER},
-      d_code = #{record.code,jdbcType=INTEGER},
-      d_restore_code = #{record.restoreCode,jdbcType=INTEGER},
-      d_request = #{record.request,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
-      d_response = #{record.response,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
-      d_restore_request = #{record.restoreRequest,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
-      d_restore_response = #{record.restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}
+    d_aid = #{record.aid,jdbcType=INTEGER},
+    d_code = #{record.code,jdbcType=INTEGER},
+    d_restore_code = #{record.restoreCode,jdbcType=INTEGER},
+    d_request = #{record.request,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    d_response = #{record.response,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    d_restore_request = #{record.restoreRequest,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    d_restore_response = #{record.restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    d_request_exception = #{record.requestException,jdbcType=LONGVARCHAR},
+    d_restore_exception = #{record.restoreException,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -414,6 +440,12 @@
       <if test="restoreResponse != null">
         d_restore_response = #{restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
       </if>
+      <if test="requestException != null">
+        d_request_exception = #{requestException,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="restoreException != null">
+        d_restore_exception = #{restoreException,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where d_id = #{id,jdbcType=INTEGER}
   </update>
@@ -421,12 +453,14 @@
     <!--@mbg.generated-->
     update tb_alarm_bmac_data
     set d_aid = #{aid,jdbcType=INTEGER},
-      d_code = #{code,jdbcType=INTEGER},
-      d_restore_code = #{restoreCode,jdbcType=INTEGER},
-      d_request = #{request,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
-      d_response = #{response,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
-      d_restore_request = #{restoreRequest,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
-      d_restore_response = #{restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}
+    d_code = #{code,jdbcType=INTEGER},
+    d_restore_code = #{restoreCode,jdbcType=INTEGER},
+    d_request = #{request,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    d_response = #{response,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    d_restore_request = #{restoreRequest,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    d_restore_response = #{restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    d_request_exception = #{requestException,jdbcType=LONGVARCHAR},
+    d_restore_exception = #{restoreException,jdbcType=LONGVARCHAR}
     where d_id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateRequestById">
@@ -435,19 +469,31 @@
         set d_request=#{updatedRequest,jdbcType=VARCHAR}
         where d_id=#{id,jdbcType=INTEGER}
     </update>
-  <update id="UpdateCodeAndResponseById">
-        <!--@mbg.generated-->
-        update tb_alarm_bmac_data
-        set d_code=#{updatedCode,jdbcType=INTEGER}, d_response=#{updatedResponse,jdbcType=VARCHAR}
-        where d_id=#{id,jdbcType=INTEGER}
-    </update>
+  <update id="updateCodeAndResponseById">
+    <!--@mbg.generated-->
+    UPDATE `tb_alarm_bmac_data`
+    SET `d_code`=#{updatedCode,jdbcType=INTEGER}, `d_response`=#{updatedResponse,jdbcType=VARCHAR}
+    WHERE `d_id`=#{id,jdbcType=INTEGER}
+  </update>
   <select id="getById" resultMap="BaseResultMap">
-        <!--@mbg.generated-->
-        select
-        <include refid="Base_Column_List" />
-        from tb_alarm_bmac_data
-        where d_id=#{id,jdbcType=INTEGER}
-    </select>
+    <!--@mbg.generated-->
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM `tb_alarm_bmac_data`
+    WHERE `d_id`=#{id,jdbcType=INTEGER}
+  </select>
+  <update id="updateRequestExceptionById">
+    <!--@mbg.generated-->
+    UPDATE `tb_alarm_bmac_data`
+    SET `d_request_exception`=#{updatedRequestException,jdbcType=LONGVARCHAR}
+    WHERE `d_id`=#{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateRestoreExceptionById">
+    <!--@mbg.generated-->
+    UPDATE `tb_alarm_bmac_data`
+    SET `d_restore_exception`=#{updatedRestoreException,jdbcType=LONGVARCHAR}
+    WHERE `d_id`=#{id,jdbcType=INTEGER}
+  </update>
   <update id="updateBatch" parameterType="java.util.List">
     <!--@mbg.generated-->
     update tb_alarm_bmac_data
@@ -479,12 +525,24 @@
       </trim>
       <trim prefix="d_restore_request = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when d_id = #{item.id,jdbcType=INTEGER} then #{item.restoreRequest,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}
+          when d_id = #{item.id,jdbcType=INTEGER} then
+          #{item.restoreRequest,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}
         </foreach>
       </trim>
       <trim prefix="d_restore_response = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
-          when d_id = #{item.id,jdbcType=INTEGER} then #{item.restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}
+          when d_id = #{item.id,jdbcType=INTEGER} then
+          #{item.restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}
+        </foreach>
+      </trim>
+      <trim prefix="d_request_exception = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when d_id = #{item.id,jdbcType=INTEGER} then #{item.requestException,jdbcType=LONGVARCHAR}
+        </foreach>
+      </trim>
+      <trim prefix="d_restore_exception = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          when d_id = #{item.id,jdbcType=INTEGER} then #{item.restoreException,jdbcType=LONGVARCHAR}
         </foreach>
       </trim>
     </trim>
@@ -542,7 +600,22 @@
       <trim prefix="d_restore_response = case" suffix="end,">
         <foreach collection="list" index="index" item="item">
           <if test="item.restoreResponse != null">
-            when d_id = #{item.id,jdbcType=INTEGER} then #{item.restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}
+            when d_id = #{item.id,jdbcType=INTEGER} then
+            #{item.restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="d_request_exception = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.requestException != null">
+            when d_id = #{item.id,jdbcType=INTEGER} then #{item.requestException,jdbcType=LONGVARCHAR}
+          </if>
+        </foreach>
+      </trim>
+      <trim prefix="d_restore_exception = case" suffix="end,">
+        <foreach collection="list" index="index" item="item">
+          <if test="item.restoreException != null">
+            when d_id = #{item.id,jdbcType=INTEGER} then #{item.restoreException,jdbcType=LONGVARCHAR}
           </if>
         </foreach>
       </trim>
@@ -555,39 +628,43 @@
   <insert id="batchInsert" parameterType="map">
     <!--@mbg.generated-->
     insert into tb_alarm_bmac_data
-    (d_id, d_aid, d_code, d_restore_code, d_request, d_response, d_restore_request, d_restore_response
-      )
+    (d_id, d_aid, d_code, d_restore_code, d_request, d_response, d_restore_request, d_restore_response,
+    d_request_exception, d_restore_exception)
     values
     <foreach collection="list" item="item" separator=",">
-      (#{item.id,jdbcType=INTEGER}, #{item.aid,jdbcType=INTEGER}, #{item.code,jdbcType=INTEGER}, 
-        #{item.restoreCode,jdbcType=INTEGER}, #{item.request,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}, 
-        #{item.response,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}, 
-        #{item.restoreRequest,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}, 
-        #{item.restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}
+      (#{item.id,jdbcType=INTEGER}, #{item.aid,jdbcType=INTEGER}, #{item.code,jdbcType=INTEGER},
+      #{item.restoreCode,jdbcType=INTEGER}, #{item.request,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+      #{item.response,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+      #{item.restoreRequest,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+      #{item.restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+      #{item.requestException,jdbcType=LONGVARCHAR}, #{item.restoreException,jdbcType=LONGVARCHAR}
         )
     </foreach>
   </insert>
   <insert id="insertOrUpdate" parameterType="ape.alarm.entity.po.AlarmBmacData">
     <!--@mbg.generated-->
-    insert into tb_alarm_bmac_data
-    (d_id, d_aid, d_code, d_restore_code, d_request, d_response, d_restore_request, d_restore_response
-      )
-    values
-    (#{id,jdbcType=INTEGER}, #{aid,jdbcType=INTEGER}, #{code,jdbcType=INTEGER}, #{restoreCode,jdbcType=INTEGER}, 
-      #{request,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}, 
-      #{response,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}, 
-      #{restoreRequest,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}, 
-      #{restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}
-      )
-    on duplicate key update 
-    d_id = #{id,jdbcType=INTEGER}, 
-    d_aid = #{aid,jdbcType=INTEGER}, 
-    d_code = #{code,jdbcType=INTEGER}, 
-    d_restore_code = #{restoreCode,jdbcType=INTEGER}, 
-    d_request = #{request,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}, 
-    d_response = #{response,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}, 
-    d_restore_request = #{restoreRequest,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}, 
-    d_restore_response = #{restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler}
+    INSERT INTO `tb_alarm_bmac_data`
+    (`d_id`, `d_aid`, `d_code`, `d_restore_code`, `d_request`, `d_response`, `d_restore_request`, `d_restore_response`,
+    `d_request_exception`, `d_restore_exception`)
+    VALUES
+    (#{id,jdbcType=INTEGER}, #{aid,jdbcType=INTEGER}, #{code,jdbcType=INTEGER}, #{restoreCode,jdbcType=INTEGER},
+    #{request,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    #{response,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    #{restoreRequest,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    #{restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    #{requestException,jdbcType=LONGVARCHAR}, #{restoreException,jdbcType=LONGVARCHAR}
+    )
+    ON DUPLICATE KEY UPDATE
+    `d_id` = #{id,jdbcType=INTEGER},
+    `d_aid` = #{aid,jdbcType=INTEGER},
+    `d_code` = #{code,jdbcType=INTEGER},
+    `d_restore_code` = #{restoreCode,jdbcType=INTEGER},
+    `d_request` = #{request,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    `d_response` = #{response,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    `d_restore_request` = #{restoreRequest,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    `d_restore_response` = #{restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+    `d_request_exception` = #{requestException,jdbcType=LONGVARCHAR},
+    `d_restore_exception` = #{restoreException,jdbcType=LONGVARCHAR}
   </insert>
   <insert id="insertOrUpdateSelective" parameterType="ape.alarm.entity.po.AlarmBmacData">
     <!--@mbg.generated-->
@@ -617,6 +694,12 @@
       <if test="restoreResponse != null">
         d_restore_response,
       </if>
+      <if test="requestException != null">
+        d_request_exception,
+      </if>
+      <if test="restoreException != null">
+        d_restore_exception,
+      </if>
     </trim>
     values
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -644,6 +727,12 @@
       <if test="restoreResponse != null">
         #{restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
       </if>
+      <if test="requestException != null">
+        #{requestException,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="restoreException != null">
+        #{restoreException,jdbcType=LONGVARCHAR},
+      </if>
     </trim>
     on duplicate key update 
     <trim suffixOverrides=",">
@@ -670,6 +759,12 @@
       </if>
       <if test="restoreResponse != null">
         d_restore_response = #{restoreResponse,jdbcType=VARCHAR,typeHandler=ape.alarm.entity.typehandler.JsonObjectTypeHandler},
+      </if>
+      <if test="requestException != null">
+        d_request_exception = #{requestException,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="restoreException != null">
+        d_restore_exception = #{restoreException,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
