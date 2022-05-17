@@ -1,7 +1,6 @@
 package ape.alarm.entity.po;
 
 import ape.alarm.common.bmac.core.AlarmBmacAction;
-import ape.alarm.common.bmac.core.AlarmBmacLevel;
 import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -78,11 +77,10 @@ public class AlarmBmacData implements Serializable {
         this.request = request;
     }
 
-    public AlarmBmacData createRestoreRequest() {
+    public AlarmBmacData createRestoreRequest(LocalDateTime restoreTime) {
         this.restoreRequest = request.deepCopy();
         restoreRequest.addProperty("action", AlarmBmacAction.resolved.name());
-        restoreRequest.addProperty("source_time", LocalDateTimeFormatter.Short(LocalDateTime.now()));
-        restoreRequest.addProperty("level", AlarmBmacLevel.remain.name());
+        restoreRequest.addProperty("close_time", LocalDateTimeFormatter.Short(restoreTime));
         return this;
     }
 

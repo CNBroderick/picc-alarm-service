@@ -35,7 +35,7 @@ public class DelaySendAlarmManager {
         return instance;
     }
 
-    @Scheduled(cron = "0/1 * * ? * *")
+    @Scheduled(cron = "34 12 0/1 * * ?")
     public void execute() {
         log.info("延迟告警发送服务开始运行。");
         int count = 0;
@@ -48,7 +48,7 @@ public class DelaySendAlarmManager {
                 switch (json.string("type")) {
                     case "set" -> stringRedisTemplate.opsForSet().add(json.string("key"), json.string("data"));
                     case "list" -> stringRedisTemplate.opsForList().rightPush(json.string("key"), json.string("data"));
-                    default -> log.error("延迟告警发送服务恢复失败，不支持的恢复类型：\n" + data);
+                    default -> log.warn("延迟告警发送服务恢复失败，不支持的恢复类型：\n" + data);
                 }
 
                 data = ops.leftPop(ALARM_DELAY_SEND_QUEUE_REDIS_KEY);

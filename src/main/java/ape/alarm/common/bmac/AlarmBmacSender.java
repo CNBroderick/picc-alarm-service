@@ -100,7 +100,7 @@ public class AlarmBmacSender implements IAlarmSender, IAlarmRestoreSender {
             AlarmBmacData data = dataMap.get(bmac.id());
             if (data == null) continue;
 
-            alarmBmacDataService.updateByPrimaryKey(data.createRestoreRequest());
+            alarmBmacDataService.updateByPrimaryKey(data.createRestoreRequest(restoreTime));
             stringSetOperations.add(ALARM_BMAC_RESTORE_QUEUE_REDIS_KEY, bmac.id() + "");
         }
 
